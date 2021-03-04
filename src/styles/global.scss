@@ -1,0 +1,13 @@
+@import 'variables';
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font: 1.6em / 1.5 $fontSans;
+}
+
+* {
+  box-sizing: border-box;
+}
