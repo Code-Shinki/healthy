@@ -1,6 +1,7 @@
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import React from 'react'
+import { RecoilRoot } from 'recoil'
 import 'styles/global.scss'
 
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
@@ -25,7 +26,9 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
         <meta name="msapplication-config" content="/browserconfig.xml" />
         <meta name="msapplication-TileImage" content="/img/favicons/site-tile-150x150.png" />
       </Head>
-      <Component {...pageProps} />
+      <RecoilRoot>
+        <Component {...pageProps} />
+      </RecoilRoot>
     </>
   )
 }
