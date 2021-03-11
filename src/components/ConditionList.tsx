@@ -8,12 +8,9 @@ const ConditionList: FC = () => {
   return (
     <>
       <div>
-        {userData.health.mood
-          .slice(-7)
-          .reverse()
-          .map((item, index) => {
-            return <div key={index}>{item}</div>
-          })}
+        {userData.health.slice(-7).map((item, index) => {
+          return <div key={index}>{item.mood}</div>
+        })}
       </div>
     </>
   )

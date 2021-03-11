@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { checkupDataset } from 'scripts/dataset'
-import { isValidState, todaysHealthState } from 'scripts/store'
+import { isCheckupValidState, todaysHealthState } from 'scripts/store'
 
 const SetMood: FC = () => {
   const [todaysHealth, setTodaysHealth] = useRecoilState(todaysHealthState)
-  const setIsValid = useSetRecoilState(isValidState)
+  const setIsValid = useSetRecoilState(isCheckupValidState)
 
   const addTodaysMood = (todaysMood: string) => {
     validate(todaysMood)

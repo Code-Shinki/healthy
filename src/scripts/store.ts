@@ -1,9 +1,16 @@
+import firebase from 'firebase/app'
 import { atom } from 'recoil'
-import { userDataset } from 'scripts/dataset'
+import { userDatasetType } from 'scripts/dataset'
+
+export const loginUserState = atom({
+  key: 'loginUserState',
+  default: undefined as firebase.User | null | undefined,
+  dangerouslyAllowMutability: true,
+})
 
 export const userDataState = atom({
   key: 'userDataState',
-  default: userDataset,
+  default: {} as userDatasetType,
 })
 
 export const todaysHealthState = atom({
@@ -12,10 +19,11 @@ export const todaysHealthState = atom({
     mood: '',
     temperature: 0,
     symptom: [] as string[],
+    createdAt: (null as unknown) as string,
   },
 })
 
-export const isValidState = atom({
-  key: 'isValidState',
+export const isCheckupValidState = atom({
+  key: 'isCheckupValidState',
   default: false,
 })

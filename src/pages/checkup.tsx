@@ -3,22 +3,31 @@ import SetSymptom from 'components/SetSymptom'
 import SetTemperature from 'components/SetTemperature'
 import { NextPage } from 'next'
 import Head from 'next/head'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { checkupDataset, checkupDatasetType } from 'scripts/dataset'
-import { isValidState, todaysHealthState } from 'scripts/store'
+import { isCheckupValidState, loginUserState, todaysHealthState } from 'scripts/store'
+import { auth } from 'utils/firebase'
 
 const Checkup: NextPage = () => {
-  const isValid = useRecoilValue(isValidState)
-  const todaysHealth = useRecoilValue(todaysHealthState)
+  const router = useRouter()
+  const setLoginUser = useSetRecoilState(loginUserState)
+  const [todaysHealth, setTodaysHealth] = useRecoilState(todaysHealthState)
+  const isValid = useRecoilValue(isCheckupValidState)
   const [currentState, setCurrentState] = useState('init')
   const [question, setQuestion] = useState('')
   const [submit, setSubmit] = useState({ message: '', next: '' })
 
   useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      user ? setLoginUser(user) : router.push('/login')
+    })
+    setTodaysHealth({
+      ...todaysHealth,
+      createdAt: new Date().toString(),
+    })
     displayNextContents(currentState, checkupDataset[currentState])
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const displayNextContents = (nextState: string, nextDataset: checkupDatasetType[string]) => {
@@ -27,18 +36,11 @@ const Checkup: NextPage = () => {
     setSubmit(nextDataset.submit)
   }
 
-  useEffect(() => {
-    console.log(todaysHealth)
-  }, [todaysHealth])
-
   return (
     <>
       <Head>
-        <title>Checkup</title>
+        <title>ヘルスチェック | Healthy</title>
       </Head>
-      <Link href="/">
-        <a>To TOP</a>
-      </Link>
 
       <div>{question}</div>
 
@@ -51,13 +53,15 @@ const Checkup: NextPage = () => {
       {currentState === 'symptom' && <SetSymptom />}
       {currentState === 'complete' && null}
 
-      <button
-        type="button"
-        onClick={() => displayNextContents(submit.next, checkupDataset[submit.next])}
-        disabled={!isValid}
-      >
-        {submit.message}
-      </button>
+      {currentState !== 'complete' && (
+        <button
+          type="button"
+          onClick={() => displayNextContents(submit.next, checkupDataset[submit.next])}
+          disabled={!isValid}
+        >
+          {submit.message}
+        </button>
+      )}
     </>
   )
 }

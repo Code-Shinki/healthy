@@ -12,8 +12,7 @@ const SetSymptom: FC = () => {
 
   const addTodaysSymptom = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    // validate関数で別途チェックすると間に合わないのでべた書き
-    if (tmpSymptom.length !== 0) {
+    if (validate()) {
       setTodaysHealth({
         ...todaysHealth,
         symptom: [...todaysHealth.symptom, tmpSymptom],
@@ -30,6 +29,15 @@ const SetSymptom: FC = () => {
       ...todaysHealth,
       symptom: newSymptoms,
     })
+  }
+
+  const validate = () => {
+    const reg = new RegExp(/[!"#$%&'()*+\-.,/:;<=>?@[\\\]^_`{|}~]/g)
+    if (tmpSymptom.length !== 0 && !reg.test(tmpSymptom)) {
+      return true
+    } else {
+      return false
+    }
   }
 
   return (

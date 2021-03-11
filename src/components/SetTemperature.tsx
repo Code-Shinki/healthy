@@ -1,31 +1,39 @@
 import React, { FC, useEffect, useState } from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { isValidState, todaysHealthState, userDataState } from 'scripts/store'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { isCheckupValidState, todaysHealthState, userDataState } from 'scripts/store'
 
 const SetTemperature: FC = () => {
   const userData = useRecoilValue(userDataState)
-  const [isValid, setIsValid] = useRecoilState(isValidState)
-  const prevTemperature = userData.health.temperature.slice(-1)[0]
+  const setIsValid = useSetRecoilState(isCheckupValidState)
+  const prevTemperature = userData.health.slice(-1)[0].temperature
   const [todaysHealth, setTodaysHealth] = useRecoilState(todaysHealthState)
   const [tips, setTips] = useState('前回と変わりないですか？')
 
+  useEffect(() => {
+    setTodaysHealth({
+      ...todaysHealth,
+      temperature: prevTemperature,
+    })
+  }, [])
+
   const addTodaysTemperature = (todaysTemperature: number) => {
-    validate(todaysTemperature)
-    if (isValid) {
+    if (validate(todaysTemperature)) {
       setTodaysHealth({
         ...todaysHealth,
         temperature: todaysTemperature,
       })
+      setIsValid(true)
     }
   }
 
   const validate = (value: number) => {
     if (value >= 35.0 && value <= 40.0) {
-      setIsValid(true)
       changeTips(value)
+      return true
     } else {
       setIsValid(false)
       setTips(`35.0～40.0までの数字を入力してください。`)
+      return false
     }
   }
 
@@ -42,14 +50,6 @@ const SetTemperature: FC = () => {
     }
   }
 
-  useEffect(() => {
-    setTodaysHealth({
-      ...todaysHealth,
-      temperature: userData.health.temperature.slice(-1)[0],
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   return (
     <>
       <div>
@@ -59,7 +59,6 @@ const SetTemperature: FC = () => {
           min="35"
           step="0.1"
           defaultValue={prevTemperature}
-          onBlur={(e) => addTodaysTemperature(Number(e.target.value))}
           onChange={(e) => addTodaysTemperature(Number(e.target.value))}
         />
       </div>
