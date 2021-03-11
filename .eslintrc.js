@@ -19,6 +19,7 @@ module.exports = {
   },
   rules: {
     'react/prop-types': 'off',
+    'react-hooks/exhaustive-deps': 'off',
     'jsx-a11y/anchor-is-valid': [
       'error',
       {
