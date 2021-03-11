@@ -1,3 +1,4 @@
+import { AuthProvider } from 'components/AuthProvider'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import React from 'react'
@@ -27,7 +28,9 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
         <meta name="msapplication-TileImage" content="/img/favicons/site-tile-150x150.png" />
       </Head>
       <RecoilRoot>
-        <Component {...pageProps} />
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
       </RecoilRoot>
     </>
   )

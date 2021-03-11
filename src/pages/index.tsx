@@ -7,14 +7,13 @@ const Top: NextPage = () => {
   return (
     <>
       <Head>
-        <title>TOP</title>
+        <title>Healthy | 体調管理アプリ</title>
       </Head>
-      <h1>TOP</h1>
-      <Link href="/dashboard">
-        <a>To Dashboard</a>
+      <Link href="/login">
+        <a>ログイン</a>
       </Link>
-      <Link href="/checkup">
-        <a>To CheckUp</a>
+      <Link href="/signup">
+        <a>新規作成</a>
       </Link>
     </>
   )

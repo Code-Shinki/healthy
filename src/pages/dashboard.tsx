@@ -4,22 +4,36 @@ import TemperatureGraph from 'components/TemperatureGraph'
 import UserInfo from 'components/UserInfo'
 import { NextPage } from 'next'
 import Head from 'next/head'
-import Link from 'next/link'
-import React from 'react'
-import { useRecoilValue } from 'recoil'
-import { userDataState } from 'scripts/store'
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
+import { useSetRecoilState } from 'recoil'
+import { loginUserState } from 'scripts/store'
+import { auth } from 'utils/firebase'
 
 const Dashboard: NextPage = () => {
-  const userData = useRecoilValue(userDataState)
+  const router = useRouter()
+  const setLoginUser = useSetRecoilState(loginUserState)
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      user ? setLoginUser(user) : router.push('/login')
+    })
+  }, [])
+
+  const logout = async () => {
+    try {
+      await auth.signOut()
+    } catch (error) {
+      alert(error.message)
+    }
+  }
 
   return (
     <>
       <Head>
-        <title>Dashboard</title>
+        <title>ダッシュボード | Healthy</title>
       </Head>
-      <Link href="/">
-        <a>To TOP</a>
-      </Link>
+      <button onClick={logout}>ログアウト</button>
       <h2>今日の体調</h2>
       <Summary />
       <h2>最近のコンディション</h2>
