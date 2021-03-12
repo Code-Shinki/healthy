@@ -7,14 +7,30 @@ const Top: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Healthy | 体調管理アプリ</title>
+        <title>Top</title>
       </Head>
-      <Link href="/login">
-        <a>ログイン</a>
-      </Link>
-      <Link href="/signup">
-        <a>新規作成</a>
-      </Link>
+      <ul>
+        <li>
+          <Link href="/login">
+            <a>/login</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/signup">
+            <a>/signup</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/dashboard">
+            <a>/dashboard</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/checkup">
+            <a>/checkup</a>
+          </Link>
+        </li>
+      </ul>
     </>
   )
 }
