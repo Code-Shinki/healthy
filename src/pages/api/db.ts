@@ -1,29 +1,37 @@
-import firebase from 'firebase'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { db } from 'utils/firebase'
 
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
-  if (!req.body.key || req.body.key !== process.env.NEXT_PUBLIC_DB_API_KEY) {
-    return res.status(401).end()
+  const token = req.headers.authorization
+
+  if (!token || token !== 'Bearer ' + process.env.NEXT_PUBLIC_X_API_KEY) {
+    res.status(401).end()
   }
 
   switch (req.method) {
-    case 'POST': {
+    case 'GET': {
       try {
-        await db
+        const snapshot = await db
           .collection('users')
-          .doc(req.body.uid)
-          .set({ ...req.body.data, createdAt: firebase.firestore.FieldValue.serverTimestamp() })
-        res.status(200).end()
+          .doc(req.query.uid as string)
+          .get()
+          .then((doc) => {
+            return doc.data()
+          })
+        res.status(200).json(snapshot)
       } catch (err) {
         res.status(500).send(err)
       }
       break
     }
-    case 'GET': {
+
+    case 'POST': {
       try {
-        const snapshot = await db.collection('users').doc(req.body.uid).get()
-        res.status(200).json(snapshot)
+        await db
+          .collection('users')
+          .doc(req.body.uid)
+          .set({ ...req.body.data, createdAt: new Date().toString() })
+        res.status(200).end()
       } catch (err) {
         res.status(500).send(err)
       }
