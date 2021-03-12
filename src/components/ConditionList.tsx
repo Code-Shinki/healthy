@@ -1,19 +1,32 @@
-import React, { FC } from 'react'
+import Spinner from 'components/Spinner'
+import React, { FC, useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
-import { userDataState } from 'scripts/store'
+import { userDatasetState } from 'states/userDataset'
 
 const ConditionList: FC = () => {
-  const userData = useRecoilValue(userDataState)
+  const userDataset = useRecoilValue(userDatasetState)
+  const [moodList, setMoodList] = useState<JSX.Element[]>()
 
-  return (
-    <>
-      <div>
-        {userData.health.slice(-7).map((item, index) => {
-          return <div key={index}>{item.mood}</div>
-        })}
-      </div>
-    </>
-  )
+  useEffect(() => {
+    if (!userDataset) return
+    setMoodList(
+      userDataset.health.slice(-7).map((item, index) => {
+        return <div key={index.toString()}>{item.mood}</div>
+      })
+    )
+  }, [userDataset])
+
+  if (!moodList) return <div>コンディションリストが存在しません</div>
+
+  if (userDataset) {
+    return (
+      <>
+        <div>{moodList}</div>
+      </>
+    )
+  }
+
+  return <Spinner />
 }
 
 export default ConditionList

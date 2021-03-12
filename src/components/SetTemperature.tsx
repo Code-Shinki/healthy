@@ -1,25 +1,33 @@
+import Spinner from 'components/Spinner'
 import React, { FC, useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { isCheckupValidState, todaysHealthState, userDataState } from 'scripts/store'
+import { isCheckupValidState } from 'states/isCheckupValid'
+import { todaysHealthDataState } from 'states/todaysHealthData'
+import { userDatasetState } from 'states/userDataset'
 
 const SetTemperature: FC = () => {
-  const userData = useRecoilValue(userDataState)
+  const userDataset = useRecoilValue(userDatasetState)
+  const [todaysHealthData, setTodaysHealthData] = useRecoilState(todaysHealthDataState)
   const setIsValid = useSetRecoilState(isCheckupValidState)
-  const prevTemperature = userData.health.slice(-1)[0].temperature
-  const [todaysHealth, setTodaysHealth] = useRecoilState(todaysHealthState)
-  const [tips, setTips] = useState('前回と変わりないですか？')
+  const [tips, setTips] = useState('体温を入力してください')
+  let prevTemperature = 36.5
 
   useEffect(() => {
-    setTodaysHealth({
-      ...todaysHealth,
+    if (!userDataset) return
+    if (userDataset.health.length !== 0) {
+      prevTemperature = userDataset.health.slice(-1)[0].temperature
+      setTips(`前回と変わりないですか？`)
+    }
+    setTodaysHealthData({
+      ...todaysHealthData,
       temperature: prevTemperature,
     })
-  }, [])
+  }, [userDataset])
 
   const addTodaysTemperature = (todaysTemperature: number) => {
     if (validate(todaysTemperature)) {
-      setTodaysHealth({
-        ...todaysHealth,
+      setTodaysHealthData({
+        ...todaysHealthData,
         temperature: todaysTemperature,
       })
       setIsValid(true)
@@ -30,11 +38,10 @@ const SetTemperature: FC = () => {
     if (value >= 35.0 && value <= 40.0) {
       changeTips(value)
       return true
-    } else {
-      setIsValid(false)
-      setTips(`35.0～40.0までの数字を入力してください。`)
-      return false
     }
+    setIsValid(false)
+    setTips(`35.0～40.0までの数字を入力してください。`)
+    return false
   }
 
   const changeTips = (value: number) => {
@@ -50,21 +57,25 @@ const SetTemperature: FC = () => {
     }
   }
 
-  return (
-    <>
-      <div>
-        <input
-          type="number"
-          max="40"
-          min="35"
-          step="0.1"
-          defaultValue={prevTemperature}
-          onChange={(e) => addTodaysTemperature(Number(e.target.value))}
-        />
-      </div>
-      <div>{tips}</div>
-    </>
-  )
+  if (userDataset) {
+    return (
+      <>
+        <div>
+          <input
+            type="number"
+            max="40"
+            min="35"
+            step="0.1"
+            defaultValue={prevTemperature}
+            onChange={(e) => addTodaysTemperature(Number(e.target.value))}
+          />
+        </div>
+        <div>{tips}</div>
+      </>
+    )
+  }
+
+  return <Spinner />
 }
 
 export default SetTemperature

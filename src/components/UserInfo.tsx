@@ -1,19 +1,24 @@
+import Spinner from 'components/Spinner'
 import React, { FC } from 'react'
 import { useRecoilValue } from 'recoil'
-import { userDataState } from 'scripts/store'
+import { userDatasetState } from 'states/userDataset'
 
 const UserInfo: FC = () => {
-  const userData = useRecoilValue(userDataState)
+  const userDataset = useRecoilValue(userDatasetState)
 
-  return (
-    <>
-      <div>名前：{userData.name}</div>
-      <div>性別：{userData.sex}</div>
-      <div>身長：{userData.height}</div>
-      <div>体重：{userData.weight}</div>
-      <div>かかりつけ医：{userData.doctor}</div>
-    </>
-  )
+  if (userDataset) {
+    return (
+      <>
+        <div>名前：{userDataset.name}</div>
+        <div>性別：{userDataset.sex}</div>
+        <div>身長：{userDataset.height}</div>
+        <div>体重：{userDataset.weight}</div>
+        <div>かかりつけ医：{userDataset.doctor}</div>
+      </>
+    )
+  }
+
+  return <Spinner />
 }
 
 export default UserInfo

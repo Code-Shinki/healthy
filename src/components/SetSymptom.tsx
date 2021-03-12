@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react'
 import { useRecoilState } from 'recoil'
-import { todaysHealthState } from 'scripts/store'
+import { todaysHealthDataState } from 'states/todaysHealthData'
 
 const SetSymptom: FC = () => {
-  const [todaysHealth, setTodaysHealth] = useRecoilState(todaysHealthState)
+  const [todaysHealthData, setTodaysHealthData] = useRecoilState(todaysHealthDataState)
   const [tmpSymptom, setTmpSymptom] = useState('')
 
   const addTmpSymptom = (tmpSymptom: string) => {
@@ -13,45 +13,43 @@ const SetSymptom: FC = () => {
   const addTodaysSymptom = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (validate()) {
-      setTodaysHealth({
-        ...todaysHealth,
-        symptom: [...todaysHealth.symptom, tmpSymptom],
+      setTodaysHealthData({
+        ...todaysHealthData,
+        symptom: [...todaysHealthData.symptom, tmpSymptom],
       })
       setTmpSymptom('')
     }
   }
 
   const removeTodaysSymptom = (index: number) => {
-    const newSymptoms = todaysHealth.symptom.filter((_symptom, symptomIndex) => {
+    const newSymptoms = todaysHealthData.symptom.filter((_symptom, symptomIndex) => {
       return symptomIndex !== index
     })
-    setTodaysHealth({
-      ...todaysHealth,
+    setTodaysHealthData({
+      ...todaysHealthData,
       symptom: newSymptoms,
     })
   }
 
   const validate = () => {
     const reg = new RegExp(/[!"#$%&'()*+\-.,/:;<=>?@[\\\]^_`{|}~]/g)
-    if (tmpSymptom.length !== 0 && !reg.test(tmpSymptom)) {
-      return true
-    } else {
-      return false
-    }
+    if (tmpSymptom.length !== 0 && !reg.test(tmpSymptom)) return true
+    return false
   }
 
   return (
     <>
       <ul>
-        {todaysHealth.symptom.map((item, index) => {
+        {todaysHealthData.symptom.map((item: string, index: number) => {
           return (
-            <li key={index}>
-              {item}
+            <li key={index.toString()}>
+              <span>{item}</span>
               <button onClick={() => removeTodaysSymptom(index)}>x</button>
             </li>
           )
         })}
       </ul>
+
       <form onSubmit={(e) => addTodaysSymptom(e)}>
         <input type="text" value={tmpSymptom} maxLength={20} onChange={(e) => addTmpSymptom(e.target.value)} required />
         <button type="submit">追加する</button>

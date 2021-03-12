@@ -1,9 +1,36 @@
-import { AuthProvider } from 'components/AuthProvider'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
-import React from 'react'
-import { RecoilRoot } from 'recoil'
+import React, { useEffect } from 'react'
+import { RecoilRoot, useRecoilState } from 'recoil'
+import { currentUserState } from 'states/currentUser'
+import { userDatasetState } from 'states/userDataset'
 import 'styles/global.scss'
+import axios from 'utils/axios'
+import { auth } from 'utils/firebase'
+
+const AppInit = () => {
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserState)
+  const [userDataset, setUserDataset] = useRecoilState(userDatasetState)
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      setCurrentUser(user)
+    })
+  }, [])
+
+  useEffect(() => {
+    ;(async () => {
+      if (currentUser && !userDataset) {
+        await axios
+          .get('/api/db', { params: { uid: currentUser.uid } })
+          .then((res) => setUserDataset({ ...res.data }))
+          .catch((err) => alert(err.message))
+      }
+    })()
+  }, [currentUser])
+
+  return null
+}
 
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (
@@ -28,9 +55,8 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
         <meta name="msapplication-TileImage" content="/img/favicons/site-tile-150x150.png" />
       </Head>
       <RecoilRoot>
-        <AuthProvider>
-          <Component {...pageProps} />
-        </AuthProvider>
+        <Component {...pageProps} />
+        <AppInit />
       </RecoilRoot>
     </>
   )

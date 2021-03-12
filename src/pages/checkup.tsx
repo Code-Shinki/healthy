@@ -1,69 +1,77 @@
 import SetMood from 'components/SetMood'
 import SetSymptom from 'components/SetSymptom'
 import SetTemperature from 'components/SetTemperature'
+import Spinner from 'components/Spinner'
+import checkupDataset from 'datasets/checkupDataset.json'
 import { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { checkupDataset, checkupDatasetType } from 'scripts/dataset'
-import { isCheckupValidState, loginUserState, todaysHealthState } from 'scripts/store'
-import { auth } from 'utils/firebase'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { currentUserState } from 'states/currentUser'
+import { isCheckupValidState } from 'states/isCheckupValid'
+import { todaysHealthDataState } from 'states/todaysHealthData'
+import { CheckupDataset } from 'types/checkupDataset'
 
 const Checkup: NextPage = () => {
   const router = useRouter()
-  const setLoginUser = useSetRecoilState(loginUserState)
-  const [todaysHealth, setTodaysHealth] = useRecoilState(todaysHealthState)
+  const currentUser = useRecoilValue(currentUserState)
+  const [todaysHealthData, setTodaysHealthData] = useRecoilState(todaysHealthDataState)
   const isValid = useRecoilValue(isCheckupValidState)
-  const [currentState, setCurrentState] = useState('init')
+  const [currentStep, setCurrentStep] = useState('init')
   const [question, setQuestion] = useState('')
   const [submit, setSubmit] = useState({ message: '', next: '' })
+  const dataset: CheckupDataset = checkupDataset
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      user ? setLoginUser(user) : router.push('/login')
-    })
-    setTodaysHealth({
-      ...todaysHealth,
+    if (currentUser === null) router.push('/login')
+  }, [currentUser])
+
+  useEffect(() => {
+    setTodaysHealthData({
+      ...todaysHealthData,
       createdAt: new Date().toString(),
     })
-    displayNextContents(currentState, checkupDataset[currentState])
+    displayNextContents(currentStep, dataset[currentStep])
   }, [])
 
-  const displayNextContents = (nextState: string, nextDataset: checkupDatasetType[string]) => {
-    setCurrentState(nextState)
+  const displayNextContents = (nextStep: string, nextDataset: CheckupDataset[string]) => {
+    setCurrentStep(nextStep)
     setQuestion(nextDataset.question)
     setSubmit(nextDataset.submit)
   }
 
-  return (
-    <>
-      <Head>
-        <title>ヘルスチェック | Healthy</title>
-      </Head>
+  if (currentUser) {
+    return (
+      <>
+        <Head>
+          <title>Checkup</title>
+        </Head>
 
-      <div>{question}</div>
+        <div>{question}</div>
 
-      {currentState === 'init' && <SetMood />}
+        {currentStep === 'init' && <SetMood />}
+        {currentStep === 'good' && <SetTemperature />}
+        {currentStep === 'fine' && <SetTemperature />}
+        {currentStep === 'bad' && <SetTemperature />}
+        {currentStep === 'symptom' && <SetSymptom />}
 
-      {currentState === 'good' && <SetTemperature />}
-      {currentState === 'fine' && <SetTemperature />}
-      {currentState === 'bad' && <SetTemperature />}
+        {currentStep === 'complete' ? (
+          <Spinner />
+        ) : (
+          <button
+            type="button"
+            onClick={() => displayNextContents(submit.next, dataset[submit.next])}
+            disabled={!isValid}
+          >
+            {submit.message}
+          </button>
+        )}
+      </>
+    )
+  }
 
-      {currentState === 'symptom' && <SetSymptom />}
-      {currentState === 'complete' && null}
-
-      {currentState !== 'complete' && (
-        <button
-          type="button"
-          onClick={() => displayNextContents(submit.next, checkupDataset[submit.next])}
-          disabled={!isValid}
-        >
-          {submit.message}
-        </button>
-      )}
-    </>
-  )
+  return <Spinner />
 }
 
 export default Checkup

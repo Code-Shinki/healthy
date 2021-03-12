@@ -1,24 +1,30 @@
+import checkupDataset from 'datasets/checkupDataset.json'
 import React, { FC } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil'
-import { checkupDataset } from 'scripts/dataset'
-import { isCheckupValidState, todaysHealthState } from 'scripts/store'
+import { isCheckupValidState } from 'states/isCheckupValid'
+import { todaysHealthDataState } from 'states/todaysHealthData'
 
 const SetMood: FC = () => {
-  const [todaysHealth, setTodaysHealth] = useRecoilState(todaysHealthState)
+  const [todaysHealthData, setTodaysHealthData] = useRecoilState(todaysHealthDataState)
   const setIsValid = useSetRecoilState(isCheckupValidState)
 
   const addTodaysMood = (todaysMood: string) => {
-    validate(todaysMood)
-    checkupDataset.init.submit.next = todaysMood
-    setTodaysHealth({
-      ...todaysHealth,
-      mood: todaysMood,
-    })
+    if (validate(todaysMood)) {
+      checkupDataset.init.submit.next = todaysMood
+      setTodaysHealthData({
+        ...todaysHealthData,
+        mood: todaysMood,
+      })
+    }
   }
 
   const validate = (value: string) => {
-    if (value === 'good' || value === 'fine' || value === 'bad') setIsValid(true)
-    else setIsValid(false)
+    if (value === 'good' || value === 'fine' || value === 'bad') {
+      setIsValid(true)
+      return true
+    }
+    setIsValid(false)
+    return false
   }
 
   return (
