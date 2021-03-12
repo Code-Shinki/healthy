@@ -1,0 +1,26 @@
+{
+  "init": {
+    "question": "調子はいかがですか？",
+    "submit": { "message": "次へ", "next": "" }
+  },
+  "good": {
+    "question": "それでは本日は体温だけ記録しておきましょう！",
+    "submit": { "message": "記録する", "next": "complete" }
+  },
+  "fine": {
+    "question": "なるほど…熱はありますか？",
+    "submit": { "message": "次へ", "next": "symptom" }
+  },
+  "bad": {
+    "question": "なるほど…体温はどうでしょうか？",
+    "submit": { "message": "次へ", "next": "symptom" }
+  },
+  "symptom": {
+    "question": "今日はどんな症状がありますか？",
+    "submit": { "message": "記録する", "next": "complete" }
+  },
+  "complete": {
+    "question": "データを記録しています",
+    "submit": { "message": "", "next": "" }
+  }
+}
