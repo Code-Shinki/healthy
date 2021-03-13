@@ -7,22 +7,28 @@ import { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilValue, useResetRecoilState } from 'recoil'
 import { currentUserState } from 'states/currentUser'
+import { isCheckupValidState } from 'states/isCheckupValid'
+import { todaysHealthDataState } from 'states/todaysHealthData'
 import { userDatasetState } from 'states/userDataset'
 import { auth } from 'utils/firebase'
 
 const Dashboard: NextPage = () => {
   const router = useRouter()
   const currentUser = useRecoilValue(currentUserState)
-  const setUserDataset = useSetRecoilState(userDatasetState)
+  const resetUserDataset = useResetRecoilState(userDatasetState)
+  const resetTodaysHealthData = useResetRecoilState(todaysHealthDataState)
+  const resetIsCheckupValid = useResetRecoilState(isCheckupValidState)
 
   useEffect(() => {
     if (currentUser === null) router.push('/login')
   }, [currentUser])
 
   const logout = async () => {
-    setUserDataset(undefined)
+    resetUserDataset()
+    resetTodaysHealthData()
+    resetIsCheckupValid()
     await auth.signOut().catch((err) => alert(err.message))
   }
 
