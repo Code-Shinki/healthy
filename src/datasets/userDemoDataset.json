@@ -363,7 +363,7 @@
     {
       "mood": "good",
       "temperature": 36.5,
-      "symptom": [],
+      "symptom": ["寝不足"],
       "createdAt": null
     }
   ]
