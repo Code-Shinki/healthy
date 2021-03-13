@@ -16,7 +16,7 @@ const ConditionList: FC = () => {
     )
   }, [userDataset])
 
-  if (!moodList) return <div>コンディションリストが存在しません</div>
+  if (!moodList || !moodList.length) return <div>コンディションリストが存在しません</div>
 
   if (userDataset) {
     return (

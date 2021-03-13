@@ -36,13 +36,13 @@ const TemperatureGraph: FC = () => {
     })
   }, [userDataset])
 
-  if (userDataset?.health.length === 0) return <div>体温データが存在しません</div>
-
   if (graphOption) {
+    if (userDataset?.health.length === 0) return <div>体温データが存在しません</div>
+
     return (
       <>
         <div>
-          <Chart type="line" options={graphOption?.options} series={graphOption?.series} />
+          <Chart type="line" options={graphOption.options} series={graphOption.series} />
         </div>
       </>
     )
