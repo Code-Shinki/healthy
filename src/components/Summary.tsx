@@ -9,31 +9,43 @@ import { UserHealthData } from 'types/userDataset'
 const Summary: FC = () => {
   const userDataset = useRecoilValue(userDatasetState)
   const [summaryData, setSummaryData] = useState<UserHealthData>()
+  const [sinceLastSummary, setSinceLastSummary] = useState('')
 
   useEffect(() => {
     if (!userDataset) return
 
-    const latestData = userDataset.health.slice(-1)[0]
-    const latestTime = getCorrectDate(latestData.createdAt, 'yyyy/MM/dd')
-    const today = getCorrectDate(new Date(), 'yyyy/MM/dd')
+    if (userDataset.health.length !== 0) {
+      const latestData = userDataset.health.slice(-1)[0]
+      const lasttime = Number(getCorrectDate(latestData.createdAt, 'yyyyMMdd'))
+      const today = Number(getCorrectDate(new Date(), 'yyyyMMdd'))
 
-    latestTime === today && setSummaryData(latestData)
+      if (today - lasttime === 0) {
+        setSinceLastSummary('本日')
+      } else if (today - lasttime === 1) {
+        setSinceLastSummary('昨日')
+      } else {
+        setSinceLastSummary(`${String(today - lasttime)}日前`)
+      }
+
+      setSummaryData(latestData)
+    }
   }, [userDataset])
 
-  if (!summaryData)
-    return (
-      <>
-        <div>本日のデータがありません</div>
-        <Link href="/checkup">
-          <a>記録しませんか？</a>
-        </Link>
-      </>
-    )
-
   if (userDataset) {
+    if (!summaryData) {
+      return (
+        <>
+          <div>サマリーデータが存在しません</div>
+          <Link href="/checkup">
+            <a>記録しませんか？</a>
+          </Link>
+        </>
+      )
+    }
+
     return (
       <>
-        <div>{getCorrectDate(summaryData.createdAt, 'yyyy/MM/dd')}</div>
+        <h2>{`${sinceLastSummary}の体調`}</h2>
         <div>{summaryData.mood}</div>
         <div>{summaryData.temperature}</div>
         {summaryData.symptom.length === 0 ? (
@@ -44,6 +56,11 @@ const Summary: FC = () => {
               return <li key={index.toString()}>{item}</li>
             })}
           </ul>
+        )}
+        {sinceLastSummary !== '本日' && (
+          <Link href="/checkup">
+            <a>記録しませんか？</a>
+          </Link>
         )}
       </>
     )

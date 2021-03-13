@@ -42,6 +42,7 @@ const TemperatureGraph: FC = () => {
     return (
       <>
         <div>
+          <h2>体温グラフ</h2>
           <Chart type="line" options={graphOption.options} series={graphOption.series} />
         </div>
       </>

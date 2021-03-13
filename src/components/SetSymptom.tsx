@@ -1,10 +1,23 @@
-import React, { FC, useState } from 'react'
-import { useRecoilState } from 'recoil'
+import React, { FC, useEffect, useState } from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { todaysHealthDataState } from 'states/todaysHealthData'
+import { userDatasetState } from 'states/userDataset'
 
 const SetSymptom: FC = () => {
+  const userDataset = useRecoilValue(userDatasetState)
   const [todaysHealthData, setTodaysHealthData] = useRecoilState(todaysHealthDataState)
   const [tmpSymptom, setTmpSymptom] = useState('')
+
+  useEffect(() => {
+    if (!userDataset) return
+    if (userDataset.health.length !== 0) {
+      const prevSymptoms = userDataset.health.slice(-1)[0].symptom
+      setTodaysHealthData({
+        ...todaysHealthData,
+        symptom: [...todaysHealthData.symptom, ...prevSymptoms],
+      })
+    }
+  }, [userDataset])
 
   const addTmpSymptom = (tmpSymptom: string) => {
     setTmpSymptom(tmpSymptom)

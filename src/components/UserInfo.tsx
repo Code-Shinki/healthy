@@ -9,6 +9,7 @@ const UserInfo: FC = () => {
   if (userDataset) {
     return (
       <>
+        <h2>あなたの情報</h2>
         <div>名前：{userDataset.name}</div>
         <div>性別：{userDataset.sex}</div>
         <div>身長：{userDataset.height}</div>
