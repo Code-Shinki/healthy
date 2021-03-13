@@ -1,14 +1,17 @@
 import { AppProps } from 'next/app'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { RecoilRoot, useRecoilState } from 'recoil'
+import { fetchGetUserDataset } from 'requests/userDataset'
 import { currentUserState } from 'states/currentUser'
 import { userDatasetState } from 'states/userDataset'
 import 'styles/global.scss'
-import axios from 'utils/axios'
+import { UserDataset } from 'types/userDataset'
 import { auth } from 'utils/firebase'
 
 const AppInit = () => {
+  const router = useRouter()
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState)
   const [userDataset, setUserDataset] = useRecoilState(userDatasetState)
 
@@ -21,10 +24,13 @@ const AppInit = () => {
   useEffect(() => {
     ;(async () => {
       if (currentUser && !userDataset) {
-        await axios
-          .get('/api/db', { params: { uid: currentUser.uid } })
-          .then((res) => setUserDataset({ ...res.data }))
-          .catch((err) => alert(err.message))
+        const snapshot = await fetchGetUserDataset(currentUser.uid)
+        if (!snapshot || !Object.keys(snapshot).length) {
+          await auth.signOut().catch((err) => alert(err.message))
+          router.push('404')
+          return
+        }
+        setUserDataset({ ...snapshot } as UserDataset)
       }
     })()
   }, [currentUser])

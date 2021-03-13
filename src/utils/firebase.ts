@@ -14,6 +14,13 @@ if (firebase.apps.length === 0) {
   firebase.initializeApp(config)
 }
 
+if (process.browser) {
+  ;(async () => {
+    // firestoreのキャッシュを有効化
+    await firebase.firestore().enablePersistence({ synchronizeTabs: true })
+  })()
+}
+
 const auth = firebase.auth()
 const db = firebase.firestore()
 
