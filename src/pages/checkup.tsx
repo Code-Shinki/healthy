@@ -8,14 +8,18 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
+import { fetchPostUserDataset } from 'requests/userDataset'
 import { currentUserState } from 'states/currentUser'
 import { isCheckupValidState } from 'states/isCheckupValid'
 import { todaysHealthDataState } from 'states/todaysHealthData'
+import { userDatasetState } from 'states/userDataset'
 import { CheckupDataset } from 'types/checkupDataset'
+import { UserHealthData } from 'types/userDataset'
 
 const Checkup: NextPage = () => {
   const router = useRouter()
   const currentUser = useRecoilValue(currentUserState)
+  const [userDataset, setUserDataset] = useRecoilState(userDatasetState)
   const [todaysHealthData, setTodaysHealthData] = useRecoilState(todaysHealthDataState)
   const isValid = useRecoilValue(isCheckupValidState)
   const [currentStep, setCurrentStep] = useState('init')
@@ -34,6 +38,20 @@ const Checkup: NextPage = () => {
     })
     displayNextContents(currentStep, dataset[currentStep])
   }, [])
+
+  useEffect(() => {
+    if (userDataset && currentStep === 'complete') {
+      ;(async () => {
+        const newData = {
+          ...userDataset,
+          health: [...userDataset.health, todaysHealthData as UserHealthData],
+        }
+        await fetchPostUserDataset(currentUser?.uid as string, newData)
+        setUserDataset(newData)
+        router.push('/dashboard')
+      })()
+    }
+  }, [currentStep])
 
   const displayNextContents = (nextStep: string, nextDataset: CheckupDataset[string]) => {
     setCurrentStep(nextStep)

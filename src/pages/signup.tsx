@@ -53,7 +53,7 @@ const SignUp: NextPage<Props> = ({ demoDataset }) => {
   }
 
   const createDatabase = async (dataset: UserDataset) => {
-    await fetchPostUserDataset(userId as string, dataset)
+    await fetchPostUserDataset(userId as string, { ...dataset, createdAt: new Date().toString() })
   }
 
   if (currentUser === null) {
