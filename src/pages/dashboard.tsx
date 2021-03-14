@@ -41,7 +41,7 @@ const Dashboard: NextPage = () => {
         <button onClick={logout}>ログアウト</button>
         <Summary />
         <ConditionList />
-        <TemperatureGraph />
+        <TemperatureGraph type="mini" range={7} />
         <UserInfo />
       </>
     )
