@@ -1,32 +1,45 @@
 import { UserDataset } from 'types/userDataset'
 import { db } from 'utils/firebase'
 
-export const fetchGetUserDataset = async (uid: string) => {
+type Option = {
+  cache: boolean
+}
+
+export const getUserDataset = async (uid: string, option: Option) => {
   try {
-    const snapshot = await db
-      .collection('users')
-      .doc(uid as string)
-      .get({ source: 'cache' })
-      .then((doc) => {
-        return doc.data()
-      })
-      .catch(async () => {
-        return await db
-          .collection('users')
-          .doc(uid as string)
-          .get({ source: 'server' })
-          .then((doc) => {
-            return doc.data()
-          })
-      })
-    return snapshot
+    if (option.cache) {
+      return await db
+        .collection('users')
+        .doc(uid)
+        .get({ source: 'cache' })
+        .then((doc) => {
+          return doc.data() as UserDataset
+        })
+        .catch(async () => {
+          return await db
+            .collection('users')
+            .doc(uid)
+            .get({ source: 'server' })
+            .then((doc) => {
+              return doc.data() as UserDataset
+            })
+        })
+    } else {
+      return await db
+        .collection('users')
+        .doc(uid)
+        .get({ source: 'server' })
+        .then((doc) => {
+          return doc.data() as UserDataset
+        })
+    }
   } catch (err) {
     alert(err.message)
     return undefined
   }
 }
 
-export const fetchPostUserDataset = async (uid: string, data: UserDataset) => {
+export const postUserDataset = async (uid: string, data: UserDataset) => {
   try {
     await db.collection('users').doc(uid).set(data)
   } catch (err) {

@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
-import { fetchPostUserDataset } from 'requests/userDataset'
+import { postUserDataset } from 'requests/userDataset'
 import { currentUserState } from 'states/currentUser'
 import { UserDataset, UserHealthData } from 'types/userDataset'
 import { auth } from 'utils/firebase'
@@ -53,7 +53,7 @@ const SignUp: NextPage<Props> = ({ demoDataset }) => {
   }
 
   const createDatabase = async (dataset: UserDataset) => {
-    await fetchPostUserDataset(userId as string, { ...dataset, createdAt: new Date().toString() })
+    await postUserDataset(userId as string, { ...dataset, createdAt: new Date().toString() })
   }
 
   if (currentUser === null) {

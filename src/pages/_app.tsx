@@ -3,11 +3,10 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { RecoilRoot, useRecoilState } from 'recoil'
-import { fetchGetUserDataset } from 'requests/userDataset'
+import { getUserDataset } from 'requests/userDataset'
 import { currentUserState } from 'states/currentUser'
 import { userDatasetState } from 'states/userDataset'
 import 'styles/global.scss'
-import { UserDataset } from 'types/userDataset'
 import { auth } from 'utils/firebase'
 
 const AppInit = () => {
@@ -24,13 +23,13 @@ const AppInit = () => {
   useEffect(() => {
     ;(async () => {
       if (currentUser && !userDataset) {
-        const snapshot = await fetchGetUserDataset(currentUser.uid)
+        const snapshot = await getUserDataset(currentUser.uid, { cache: true })
         if (!snapshot || !Object.keys(snapshot).length) {
           await auth.signOut().catch((err) => alert(err.message))
           router.push('404')
           return
         }
-        setUserDataset({ ...snapshot } as UserDataset)
+        setUserDataset(snapshot)
       }
     })()
   }, [currentUser])

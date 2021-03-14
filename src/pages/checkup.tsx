@@ -8,7 +8,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { fetchPostUserDataset } from 'requests/userDataset'
+import { postUserDataset } from 'requests/userDataset'
 import { currentUserState } from 'states/currentUser'
 import { isCheckupValidState } from 'states/isCheckupValid'
 import { todaysHealthDataState } from 'states/todaysHealthData'
@@ -46,7 +46,7 @@ const Checkup: NextPage = () => {
           ...userDataset,
           health: [...userDataset.health, todaysHealthData as UserHealthData],
         }
-        await fetchPostUserDataset(currentUser?.uid as string, newData)
+        await postUserDataset(currentUser?.uid as string, newData)
         setUserDataset(newData)
         router.push('/dashboard')
       })()
