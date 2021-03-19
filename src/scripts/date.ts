@@ -11,3 +11,16 @@ export const getCorrectDate = (date: null | string | Date, conversion?: string):
 
   return format(jstDate, conversion)
 }
+
+export const getDemoDate = () => {
+  const today = new Date()
+  const start = new Date()
+  start.setDate(today.getDate() - 60)
+  let demoDate: string[] = []
+
+  for (let i = start; i < today; i.setDate(i.getDate() + 1)) {
+    demoDate = [...demoDate, i.toString()]
+  }
+
+  return demoDate
+}
