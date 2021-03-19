@@ -1,13 +1,32 @@
-@import 'variables';
+@import 'styles/assets/mixins';
 
 html {
   font-size: 62.5%;
 }
 
-body {
-  font: 1.6em / 1.5 $fontSans;
-}
-
 * {
   box-sizing: border-box;
+}
+
+body {
+  color: var(--c-black);
+  font: 1.4rem / 1.5 var(--font-sans);
+  @include mq(md) {
+    font-size: 1.5rem;
+  }
+}
+
+button {
+  font-size: inherit !important;
+  font-family: inherit !important;
+}
+
+input {
+  font-size: inherit !important;
+  font-family: inherit !important;
+}
+
+label {
+  font-size: inherit !important;
+  font-family: inherit !important;
 }

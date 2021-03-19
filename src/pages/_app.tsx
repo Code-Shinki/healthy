@@ -1,11 +1,14 @@
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import 'normalize.css'
 import React, { useEffect } from 'react'
 import { RecoilRoot, useRecoilState } from 'recoil'
 import { getUserDataset } from 'requests/userDataset'
 import { currentUserState } from 'states/currentUser'
 import { userDatasetState } from 'states/userDataset'
+import 'styles/assets/variables.scss'
 import 'styles/global.scss'
 import { auth } from 'utils/firebase'
 
@@ -58,9 +61,12 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
         <link rel="manifest" href="/manifest.webmanifest" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
         <meta name="msapplication-TileImage" content="/img/favicons/site-tile-150x150.png" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
       </Head>
       <RecoilRoot>
-        <Component {...pageProps} />
+        <MuiThemeProvider theme={theme}>
+          <Component {...pageProps} />
+        </MuiThemeProvider>
         <AppInit />
       </RecoilRoot>
     </>
@@ -68,3 +74,28 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
 }
 
 export default App
+
+const theme = createMuiTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 576,
+      md: 768,
+      lg: 992,
+      xl: 1200,
+    },
+  },
+  palette: {
+    text: {
+      primary: '#333',
+    },
+    background: {
+      paper: '#fafafa',
+    },
+  },
+  typography: {
+    body2: {
+      fontSize: 'inherit',
+    },
+  },
+})
