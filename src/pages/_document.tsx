@@ -1,3 +1,4 @@
+import { ServerStyleSheets } from '@material-ui/core/styles'
 import { randomBytes } from 'crypto'
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
@@ -8,11 +9,21 @@ type Props = {
 
 class MyDocument extends Document<Props> {
   static async getInitialProps(ctx: DocumentContext) {
-    const initialProps = await Document.getInitialProps(ctx)
     const nonce = randomBytes(128).toString('base64')
+    const sheets = new ServerStyleSheets()
+    const originalRenderPage = ctx.renderPage
+
+    ctx.renderPage = () =>
+      originalRenderPage({
+        enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
+      })
+
+    const initialProps = await Document.getInitialProps(ctx)
+
     return {
       ...initialProps,
       nonce,
+      styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()],
     }
   }
 

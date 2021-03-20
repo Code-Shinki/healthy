@@ -18,9 +18,15 @@ const AppInit = () => {
   const [userDataset, setUserDataset] = useRecoilState(userDatasetState)
 
   useEffect(() => {
+    // Firebase Authentication
     auth.onAuthStateChanged((user) => {
       setCurrentUser(user)
     })
+    // Material-UI for SSR
+    const jssStyles = document.querySelector('#jss-server-side')
+    if (jssStyles && jssStyles.parentNode) {
+      jssStyles.parentNode.removeChild(jssStyles)
+    }
   }, [])
 
   useEffect(() => {
