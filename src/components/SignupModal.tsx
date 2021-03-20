@@ -97,7 +97,7 @@ const Fade = React.forwardRef<HTMLDivElement, FadeProps>((props, ref) => {
   })
 
   return (
-    <animated.div ref={ref} style={style as any} {...other} className={styles.fader}>
+    <animated.div ref={ref} style={style as Record<string, unknown>} {...other} className={styles.fader}>
       {children}
     </animated.div>
   )
