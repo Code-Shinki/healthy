@@ -62,12 +62,12 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
         <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff" />
         <meta name="apple-mobile-web-app-title" content={SITE_TITLE} />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/img/favicons/android-chrome-192x192.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/img/favicons/apple-touch-icon-180x180.png" />
-        <link rel="mask-icon" href="/img/favicons/safari-pinned-tab.svg" color="#eceff4" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/img/icon/android-chrome-192x192.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/img/icon/apple-touch-icon-180x180.png" />
+        <link rel="mask-icon" href="/img/icon/safari-pinned-tab.svg" color="#eceff4" />
         <link rel="manifest" href="/manifest.webmanifest" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
-        <meta name="msapplication-TileImage" content="/img/favicons/site-tile-150x150.png" />
+        <meta name="msapplication-TileImage" content="/img/icon/site-tile-150x150.png" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
       </Head>
       <RecoilRoot>
@@ -101,6 +101,20 @@ const theme = createMuiTheme({
     },
   },
   typography: {
+    fontFamily: [
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      '"Hiragino Sans"',
+      '"Hiragino Kaku Gothic ProN"',
+      '"BIZ UDPGothic"',
+      'Meiryo',
+      '"sans-serif"',
+    ].join(','),
+
+    body1: {
+      fontSize: 'inherit',
+    },
     body2: {
       fontSize: 'inherit',
     },
