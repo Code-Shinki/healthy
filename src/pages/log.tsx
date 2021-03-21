@@ -1,5 +1,5 @@
 import Spinner from 'components/Spinner'
-import { NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
@@ -20,6 +20,7 @@ const Log: NextPage = () => {
         <Head>
           <title>Log</title>
         </Head>
+        <h1>Log</h1>
       </>
     )
   }
@@ -28,3 +29,11 @@ const Log: NextPage = () => {
 }
 
 export default Log
+
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {
+      menuLayout: true,
+    },
+  }
+}

@@ -3,7 +3,7 @@ import SetSymptom from 'components/SetSymptom'
 import SetTemperature from 'components/SetTemperature'
 import Spinner from 'components/Spinner'
 import checkupDataset from 'datasets/checkupDataset.json'
-import { NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -93,3 +93,11 @@ const Checkup: NextPage = () => {
 }
 
 export default Checkup
+
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {
+      menuLayout: true,
+    },
+  }
+}

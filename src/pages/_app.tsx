@@ -1,4 +1,5 @@
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
+import Body from 'layouts/Body'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -72,7 +73,13 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
       </Head>
       <RecoilRoot>
         <MuiThemeProvider theme={theme}>
-          <Component {...pageProps} />
+          {pageProps.menuLayout ? (
+            <Body>
+              <Component {...pageProps} />
+            </Body>
+          ) : (
+            <Component {...pageProps} />
+          )}
         </MuiThemeProvider>
         <AppInit />
       </RecoilRoot>
@@ -93,6 +100,9 @@ const theme = createMuiTheme({
     },
   },
   palette: {
+    primary: {
+      main: '#03A9F4',
+    },
     text: {
       primary: '#333',
     },

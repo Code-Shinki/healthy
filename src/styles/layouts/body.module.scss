@@ -1,0 +1,7 @@
+@import 'styles/assets/mixins';
+
+.container {
+  @include mq(lg) {
+    padding-left: 250px;
+  }
+}

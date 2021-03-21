@@ -1,5 +1,5 @@
 import Spinner from 'components/Spinner'
-import { NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -117,3 +117,11 @@ const User: NextPage = () => {
 }
 
 export default User
+
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {
+      menuLayout: true,
+    },
+  }
+}

@@ -1,6 +1,6 @@
 import Spinner from 'components/Spinner'
 import TemperatureGraph from 'components/TemperatureGraph'
-import { NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
@@ -30,3 +30,11 @@ const Temperature: NextPage = () => {
 }
 
 export default Temperature
+
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {
+      menuLayout: true,
+    },
+  }
+}
