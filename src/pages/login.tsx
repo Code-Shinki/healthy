@@ -1,4 +1,4 @@
-import { Avatar, Button, Grid, Link, Paper, TextField } from '@material-ui/core'
+import { Avatar, Button, Grid, Link, Paper, TextField, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import SecurityIcon from '@material-ui/icons/LockOpen'
 import Spinner from 'components/Spinner'
@@ -6,7 +6,7 @@ import { NextPage } from 'next'
 import Head from 'next/head'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import { currentUserState } from 'states/currentUser'
 import { auth } from 'utils/firebase'
@@ -22,12 +22,20 @@ const Login: NextPage = () => {
     if (currentUser) router.push('/dashboard')
   }, [currentUser])
 
-  const login = async (event: React.FormEvent<HTMLFormElement>) => {
+  const login = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     await auth.signInWithEmailAndPassword(email, password).catch((err) => {
       alert(err.message)
     })
     router.push('/dashboard')
+  }
+
+  const changeEmail = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value)
+  }
+
+  const changePassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value)
   }
 
   if (currentUser === null) {
@@ -44,7 +52,7 @@ const Login: NextPage = () => {
               </Avatar>
               <h1>ログイン</h1>
               <p>※ 現在ログアウト時にデータを削除しているため利用できません。</p>
-              <form className={classes.form} noValidate onSubmit={(e) => login(e)}>
+              <form className={classes.form} noValidate onSubmit={login}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <TextField
@@ -55,7 +63,7 @@ const Login: NextPage = () => {
                       required
                       variant="outlined"
                       fullWidth
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={changeEmail}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -68,7 +76,7 @@ const Login: NextPage = () => {
                       required
                       variant="outlined"
                       fullWidth
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={changePassword}
                     />
                   </Grid>
                 </Grid>
@@ -103,7 +111,7 @@ const Login: NextPage = () => {
 
 export default Login
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     height: '100vh',
   },

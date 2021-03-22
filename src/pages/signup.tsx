@@ -9,7 +9,7 @@ import { NextPage } from 'next'
 import Head from 'next/head'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import { postUserDataset } from 'requests/userDataset'
 import { getDemoDate } from 'scripts/date'
@@ -66,6 +66,18 @@ const SignUp: NextPage = () => {
     await postUserDataset(userId as string, { ...dataset, createdAt: new Date().toString() })
   }
 
+  const changeName = (event: ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value)
+  }
+
+  const changeEmail = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value)
+  }
+
+  const changePassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value)
+  }
+
   if (currentUser === null) {
     return (
       <>
@@ -82,7 +94,7 @@ const SignUp: NextPage = () => {
               </Avatar>
               <h1>ようこそHealthyへ</h1>
               <p>新規登録して体調を記録しましょう。</p>
-              <form className={classes.form} noValidate onSubmit={(e) => createEmailUser(e)}>
+              <form className={classes.form} noValidate onSubmit={createEmailUser}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <TextField
@@ -93,7 +105,7 @@ const SignUp: NextPage = () => {
                       required
                       variant="outlined"
                       fullWidth
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={changeName}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -105,7 +117,7 @@ const SignUp: NextPage = () => {
                       required
                       variant="outlined"
                       fullWidth
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={changeEmail}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -118,7 +130,7 @@ const SignUp: NextPage = () => {
                       required
                       variant="outlined"
                       fullWidth
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={changePassword}
                     />
                   </Grid>
                 </Grid>
