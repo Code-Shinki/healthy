@@ -1,5 +1,5 @@
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
-import Body from 'layouts/Body'
+import LoginLayout from 'layouts/LoginLayout'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -74,9 +74,9 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
       <RecoilRoot>
         <MuiThemeProvider theme={theme}>
           {pageProps.menuLayout ? (
-            <Body>
+            <LoginLayout>
               <Component {...pageProps} />
-            </Body>
+            </LoginLayout>
           ) : (
             <Component {...pageProps} />
           )}

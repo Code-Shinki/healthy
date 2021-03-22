@@ -2,6 +2,6 @@
 
 .container {
   @include mq(lg) {
-    padding-left: 250px;
+    padding: 30px 30px 30px calc(250px + 30px);
   }
 }

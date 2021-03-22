@@ -6,7 +6,7 @@ type Props = {
   children: ReactNode
 }
 
-const Body: FC<Props> = (props) => {
+const LoginLayout: FC<Props> = (props) => {
   return (
     <>
       <div className={styles.container}>{props.children}</div>
@@ -15,4 +15,4 @@ const Body: FC<Props> = (props) => {
   )
 }
 
-export default Body
+export default LoginLayout
