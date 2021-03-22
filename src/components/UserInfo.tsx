@@ -12,7 +12,7 @@ const UserInfo: FC = () => {
       <>
         <h2>あなたの情報</h2>
         <div>名前：{userDataset.name}</div>
-        <div>性別：{userDataset.sex}</div>
+        <div>性別：{userDataset.gender}</div>
         <div>身長：{userDataset.height}</div>
         <div>体重：{userDataset.weight}</div>
         <div>かかりつけ医：{userDataset.doctor}</div>

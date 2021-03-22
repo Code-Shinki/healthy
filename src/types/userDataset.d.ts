@@ -1,6 +1,6 @@
 export type UserDataset = {
   name: null | string
-  sex: null | string
+  gender: null | string
   height: null | number
   weight: null | number
   doctor: null | string
