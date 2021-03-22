@@ -1,8 +1,0 @@
-@import 'styles/assets/mixins';
-
-.container {
-  @include mq(lg) {
-    padding: 30px 30px 30px calc(250px + 50px);
-    overflow: hidden;
-  }
-}
