@@ -1,6 +1,7 @@
-import { Button, FormControlLabel, Radio, RadioGroup, TextField, Theme } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
+import { Button, FormControlLabel, Radio, RadioGroup, TextField } from '@material-ui/core'
+import { makeStyles, Theme } from '@material-ui/core/styles'
 import Spinner from 'components/Spinner'
+import ContentsWrapper from 'layouts/ContentsWrapper'
 import { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -79,8 +80,8 @@ const User: NextPage = () => {
         <Head>
           <title>User</title>
         </Head>
-        <div className={classes.container}>
-          <h1 className={classes.h1}>ユーザー設定</h1>
+        <ContentsWrapper class={classes.container}>
+          <h1>ユーザー設定</h1>
           <form className={classes.form} noValidate onSubmit={updateUserInfo}>
             <div className={classes.wrapper}>
               <label htmlFor="name" className={classes.label}>
@@ -168,7 +169,7 @@ const User: NextPage = () => {
               更新する
             </Button>
           </form>
-        </div>
+        </ContentsWrapper>
       </>
     )
   }
@@ -180,33 +181,11 @@ export default User
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    padding: '2em 1em',
-    margin: '4em 1em 0',
-    background: '#fff',
-    borderRadius: 5,
-    boxShadow: '0 1px 4px rgba(0, 0, 0, .15)',
-    position: 'relative',
+    width: '95%',
+    maxWidth: 800,
     [theme.breakpoints.up('lg')]: {
-      maxWidth: 800,
-      padding: '45px',
-      margin: '4em auto 0',
+      width: '90%',
     },
-  },
-  h1: {
-    width: '90%',
-    padding: '.4em .2em',
-    margin: 0,
-    color: '#fff',
-    fontSize: '1.8em',
-    fontWeight: 'normal',
-    textAlign: 'center',
-    background: 'var(--c-primary)',
-    borderRadius: 5,
-    boxShadow: '0 4px 20px 0 rgba(0, 0, 0, .15), 0 7px 10px -5px rgba(0, 0, 0, .15)',
-    position: 'absolute',
-    top: 0,
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
   },
   label: {
     padding: '0 0 0 .3em',
@@ -216,6 +195,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   form: {
     width: '100%', // Fix IE 11 issue.
+    padding: '2em 1em',
+    [theme.breakpoints.up('lg')]: {
+      padding: '45px',
+    },
   },
   wrapper: {
     margin: '2em 0',
