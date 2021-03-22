@@ -53,7 +53,7 @@ const SignupModal: FC = () => {
               </p>
               <Grid className={classes.buttonWrapper} container justify="center">
                 <Button
-                  variant="contained"
+                  variant="outlined"
                   size="large"
                   color="primary"
                   startIcon={<CheckCircleIcon />}

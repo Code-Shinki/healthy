@@ -148,7 +148,7 @@ const useStyles = makeStyles(() =>
   createStyles({
     bottomNavRoot: {
       width: '100%',
-      boxShadow: '0 0 4px rgba(0, 0, 0, .3)',
+      boxShadow: '0 0 4px rgba(0, 0, 0, .15)',
       position: 'fixed',
       bottom: 0,
     },
@@ -163,7 +163,7 @@ const useStyles = makeStyles(() =>
       backgroundSize: 'cover',
       backgroundPosition: '32%',
       border: 'none',
-      boxShadow: '1px 0 5px rgba(0, 0, 0, 0.3)',
+      boxShadow: '0 1px 4px rgba(0, 0, 0, 0.15)',
     },
     drawerContainer: {
       height: '100%',
