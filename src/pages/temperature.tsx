@@ -1,5 +1,8 @@
+import { makeStyles, Theme } from '@material-ui/core/styles'
+import EqualizerIcon from '@material-ui/icons/Equalizer'
 import Spinner from 'components/Spinner'
 import TemperatureGraph from 'components/TemperatureGraph'
+import ContentsWrapper from 'layouts/ContentsWrapper'
 import { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -9,6 +12,7 @@ import { currentUserState } from 'states/currentUser'
 
 const Temperature: NextPage = () => {
   const router = useRouter()
+  const classes = useStyles()
   const currentUser = useRecoilValue(currentUserState)
 
   useEffect(() => {
@@ -21,7 +25,13 @@ const Temperature: NextPage = () => {
         <Head>
           <title>Temperature</title>
         </Head>
-        <TemperatureGraph type="full" range={0} />
+        <ContentsWrapper class={classes.container}>
+          <h1>
+            <EqualizerIcon style={{ fontSize: '1.4em' }} />
+            体温グラフ
+          </h1>
+          <TemperatureGraph type="full" range={0} />
+        </ContentsWrapper>
       </>
     )
   }
@@ -30,6 +40,15 @@ const Temperature: NextPage = () => {
 }
 
 export default Temperature
+
+const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    width: '95%',
+    [theme.breakpoints.up('lg')]: {
+      width: '90%',
+    },
+  },
+}))
 
 export const getStaticProps: GetStaticProps = async () => {
   return {

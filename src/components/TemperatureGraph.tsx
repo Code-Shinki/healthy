@@ -1,7 +1,7 @@
+import { makeStyles, Theme } from '@material-ui/core/styles'
+import WarningIcon from '@material-ui/icons/Warning'
 import { ApexOptions } from 'apexcharts'
-import Spinner from 'components/Spinner'
 import dynamic from 'next/dynamic'
-import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import { userDatasetState } from 'states/userDataset'
@@ -14,6 +14,7 @@ type Props = {
 }
 
 const TemperatureGraph: FC<Props> = (props) => {
+  const classes = useStyles()
   const userDataset = useRecoilValue(userDatasetState)
   const [graphOption, setGraphOption] = useState<{ options: ApexOptions[]; series: ApexAxisChartSeries }>()
 
@@ -36,124 +37,149 @@ const TemperatureGraph: FC<Props> = (props) => {
         options: [
           // 流線グラフオプション
           {
-            // annotations: {
-            //   yaxis: [
-            //     {
-            //       y: minFineTmp,
-            //       y2: maxFineTmp,
-            //       borderColor: '#000',
-            //       fillColor: '#FEB019',
-            //       label: {
-            //         text: 'あなたの通常体温',
-            //       },
-            //     },
-            //   ],
-            // },
+            annotations: {
+              position: 'back',
+              yaxis: [
+                {
+                  y: minFineTmp,
+                  y2: maxFineTmp,
+                  fillColor: '#00e396',
+                  opacity: 0.4,
+                  label: {
+                    text: 'あなたの基礎体温',
+                    offsetX: -5,
+                    offsetY: -50,
+                    style: {
+                      background: '#C4F7E5',
+                      fontFamily: 'inherit',
+                      padding: {
+                        left: 7,
+                        right: 7,
+                        top: 5,
+                        bottom: 5,
+                      },
+                    },
+                  },
+                },
+              ],
+            },
             chart: {
               id: 'aria',
-              // height: 380,
-              // foreColor: '#999',
-              // toolbar: {
-              //   autoSelected: 'pan',
-              //   show: false,
-              // },
-              // dropShadow: {
-              //   enabled: true,
-              //   enabledOnSeries: [0],
-              //   top: -2,
-              //   left: 2,
-              //   blur: 5,
-              //   opacity: 0.06,
-              // },
+              toolbar: {
+                show: false,
+                autoSelected: 'pan',
+              },
+              dropShadow: {
+                enabled: true,
+                enabledOnSeries: [0],
+                top: -2,
+                left: 2,
+                blur: 5,
+                opacity: 0.06,
+              },
             },
-            // colors: ['#0090FF'],
-            // dataLabels: {
-            //   enabled: false,
-            // },
-            // fill: {
-            //   type: 'solid',
-            //   opacity: 0.7,
-            // },
-            // grid: {
-            //   padding: {
-            //     left: -5,
-            //     right: 5,
-            //   },
-            // },
-            // markers: {
-            //   size: 0,
-            //   strokeColors: '#fff',
-            //   strokeWidth: 3,
-            //   strokeOpacity: 1,
-            //   fillOpacity: 1,
-            //   hover: {
-            //     size: 6,
-            //   },
-            // },
-            // stroke: {
-            //   curve: 'smooth',
-            //   width: 3,
-            // },
-            // tooltip: {
-            //   x: {
-            //     format: 'yyyy年MM月dd日',
-            //   },
-            // },
-            // xaxis: {
-            //   type: 'datetime',
-            //   axisBorder: {
-            //     show: true,
-            //   },
-            // },
-            // yaxis: {
-            //   tickAmount: 4,
-            //   labels: {
-            //     offsetX: 24,
-            //     offsetY: -5,
-            //   },
-            // },
+            colors: ['#03a9f4'],
+            dataLabels: {
+              enabled: true,
+              offsetY: -12,
+              style: {
+                fontWeight: 400,
+              },
+              background: {
+                padding: 6,
+                dropShadow: {
+                  enabled: true,
+                  top: 1,
+                  left: 1,
+                  blur: 3,
+                  opacity: 0.06,
+                },
+              },
+            },
+            fill: {
+              type: 'gradient',
+              gradient: {
+                opacityFrom: 0.8,
+                opacityTo: 0.4,
+              },
+            },
+            markers: {
+              size: 6,
+              colors: ['#E5F7FE'],
+              strokeColors: '#03a9f4',
+              strokeWidth: 3,
+              hover: {
+                size: 8,
+              },
+            },
+            stroke: {
+              curve: 'smooth',
+              width: 3,
+            },
+            tooltip: {
+              style: {
+                fontFamily: 'inherit',
+              },
+              x: {
+                format: 'yyyy年MM月dd日',
+              },
+            },
+            xaxis: {
+              type: 'datetime',
+              labels: {
+                format: 'MM月dd日',
+              },
+            },
+            yaxis: {
+              tickAmount: 5,
+              min: 35,
+              max: 40,
+            },
           },
           // 棒グラフオプション
           {
             chart: {
               id: 'bar',
-              // height: 130,
-              // foreColor: '#ccc',
-              // brush: {
-              //   target: 'aria',
-              //   enabled: true,
-              // },
-              // selection: {
-              //   enabled: true,
-              //   fill: {
-              //     color: '#fff',
-              //     opacity: 0.4,
-              //   },
-              //   xaxis: {
-              //     min: new Date('27 Jul 2017 10:00:00').getTime(),
-              //     max: new Date('14 Aug 2017 10:00:00').getTime(),
-              //   },
-              // },
+              brush: {
+                target: 'aria',
+                enabled: true,
+              },
+              selection: {
+                enabled: true,
+                xaxis: {
+                  min: new Date(userDataset.health.slice(-10, -9)[0].createdAt as string).getTime(),
+                  max: new Date(userDataset.health.slice(-1)[0].createdAt as string).getTime(),
+                },
+              },
             },
-            // colors: ['#FF0080'],
-            // stroke: {
-            //   width: 2,
-            // },
-            // grid: {
-            //   borderColor: '#444',
-            // },
-            // markers: {
-            //   size: 0,
-            // },
-            // xaxis: {
-            //   type: 'datetime',
-            //   tooltip: {
-            //     enabled: false,
-            //   },
-            // },
-            // yaxis: {
-            //   tickAmount: 2,
-            // },
+            colors: ['#00E396'],
+            responsive: [
+              {
+                breakpoint: 1200,
+                options: {
+                  chart: {
+                    selection: {
+                      enabled: true,
+                      xaxis: {
+                        min: new Date(userDataset.health.slice(-7, -6)[0].createdAt as string).getTime(),
+                        max: new Date(userDataset.health.slice(-1)[0].createdAt as string).getTime(),
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+            xaxis: {
+              type: 'datetime',
+              labels: {
+                format: 'yyyy/MM/dd',
+              },
+            },
+            yaxis: {
+              tickAmount: 1,
+              min: 35,
+              max: 40,
+            },
           },
         ],
         // 体温データ
@@ -170,22 +196,71 @@ const TemperatureGraph: FC<Props> = (props) => {
   }, [userDataset])
 
   if (graphOption) {
-    if (userDataset?.health.length === 0) return <div>体温データが存在しません</div>
+    if (userDataset?.health.length === 0) {
+      return (
+        <>
+          <div className={classes.noGraph}>
+            <WarningIcon style={{ fontSize: '1.5em' }} />
+            体温データが存在しません
+          </div>
+        </>
+      )
+    }
 
-    return (
-      <>
-        <div>
-          <Link href="/dashboard">
-            <a>Dashboard</a>
-          </Link>
-          <Chart type="area" options={graphOption.options[0]} series={graphOption.series} />
-          {props.type === 'full' && <Chart type="bar" options={graphOption.options[1]} series={graphOption.series} />}
-        </div>
-      </>
-    )
+    if (props.type === 'mini') {
+      return (
+        <>
+          <div className={classes.miniGraph}>
+            <Chart type="area" options={graphOption.options[0]} series={graphOption.series} height="300px" />
+          </div>
+        </>
+      )
+    }
+
+    if (props.type === 'full') {
+      return (
+        <>
+          <div className={classes.fullGraph}>
+            <Chart type="area" options={graphOption.options[0]} series={graphOption.series} height="70%" />
+            <Chart type="bar" options={graphOption.options[1]} series={graphOption.series} height="30%" />
+          </div>
+        </>
+      )
+    }
   }
 
-  return <Spinner />
+  return null
 }
 
 export default TemperatureGraph
+
+const useStyles = makeStyles((theme: Theme) => ({
+  miniGraph: {
+    padding: '2em 0 0',
+    [theme.breakpoints.up('lg')]: {
+      padding: '60px 40px 40px',
+    },
+  },
+  fullGraph: {
+    height: '80vh',
+    padding: '2em 0 0',
+    [theme.breakpoints.up('lg')]: {
+      height: '88vh',
+      padding: '60px 40px 40px',
+    },
+  },
+  noGraph: {
+    color: 'var(--c-primary)',
+    fontSize: '1.3em',
+    padding: '5em 1em 3em',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '1.5em',
+    },
+    '& svg': {
+      marginRight: '.3em',
+    },
+  },
+}))
