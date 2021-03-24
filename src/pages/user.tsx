@@ -1,5 +1,6 @@
 import { Button, FormControlLabel, Radio, RadioGroup, TextField } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
+import PersonIcon from '@material-ui/icons/Person'
 import Spinner from 'components/Spinner'
 import ContentsWrapper from 'layouts/ContentsWrapper'
 import { GetStaticProps, NextPage } from 'next'
@@ -81,7 +82,10 @@ const User: NextPage = () => {
           <title>User</title>
         </Head>
         <ContentsWrapper class={classes.container}>
-          <h1>ユーザー設定</h1>
+          <h1>
+            <PersonIcon style={{ fontSize: '1.4em' }} />
+            ユーザー設定
+          </h1>
           <form className={classes.form} noValidate onSubmit={updateUserInfo}>
             <div className={classes.wrapper}>
               <label htmlFor="name" className={classes.label}>
