@@ -30,7 +30,7 @@ const Temperature: NextPage = () => {
             <EqualizerIcon style={{ fontSize: '1.4em' }} />
             体温グラフ
           </h1>
-          <TemperatureGraph type="full" range={0} />
+          <TemperatureGraph type="full" />
         </ContentsWrapper>
       </>
     )

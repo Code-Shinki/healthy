@@ -4,13 +4,13 @@ import { ApexOptions } from 'apexcharts'
 import dynamic from 'next/dynamic'
 import React, { FC, useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
+import { getCorrectDate } from 'scripts/date'
 import { userDatasetState } from 'states/userDataset'
 import { UserHealthData } from 'types/userDataset'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 type Props = {
   type: 'mini' | 'full'
-  range?: number
 }
 
 const TemperatureGraph: FC<Props> = (props) => {
@@ -22,7 +22,7 @@ const TemperatureGraph: FC<Props> = (props) => {
     if (!userDataset) return
 
     if (userDataset.health.length !== 0) {
-      const periodData = userDataset.health.slice(props.range)
+      let graphData: UserHealthData[]
       let maxFineTmp = 35.0
       let minFineTmp = 38.0
 
@@ -33,9 +33,87 @@ const TemperatureGraph: FC<Props> = (props) => {
         }
       })
 
+      if (props.type === 'mini') {
+        graphData = userDataset.health.slice(-7)
+      } else {
+        graphData = userDataset.health
+      }
+
       setGraphOption({
         options: [
-          // 流線グラフオプション
+          // 流線グラフオプション (ミニグラフ)
+          {
+            chart: {
+              id: 'aria',
+              toolbar: {
+                show: false,
+                autoSelected: 'pan',
+              },
+              dropShadow: {
+                enabled: true,
+                enabledOnSeries: [0],
+                top: -2,
+                left: 2,
+                blur: 5,
+                opacity: 0.06,
+              },
+            },
+            colors: ['#03a9f4'],
+            dataLabels: {
+              enabled: true,
+              offsetY: -12,
+              style: {
+                fontWeight: 400,
+              },
+              background: {
+                padding: 6,
+                dropShadow: {
+                  enabled: true,
+                  top: 1,
+                  left: 1,
+                  blur: 3,
+                  opacity: 0.06,
+                },
+              },
+            },
+            fill: {
+              type: 'gradient',
+              gradient: {
+                opacityFrom: 0.8,
+                opacityTo: 0.4,
+              },
+            },
+            markers: {
+              size: 6,
+              colors: ['#E5F7FE'],
+              strokeColors: '#03a9f4',
+              strokeWidth: 3,
+              hover: {
+                size: 8,
+              },
+            },
+            stroke: {
+              curve: 'smooth',
+              width: 3,
+            },
+            tooltip: {
+              style: {
+                fontFamily: 'inherit',
+              },
+              x: {
+                format: 'yyyy年MM月dd日',
+              },
+            },
+            xaxis: {
+              type: 'category',
+            },
+            yaxis: {
+              tickAmount: 5,
+              min: 35,
+              max: 40,
+            },
+          },
+          // 流線グラフオプション (フルグラフ)
           {
             annotations: {
               position: 'back',
@@ -136,7 +214,7 @@ const TemperatureGraph: FC<Props> = (props) => {
               max: 40,
             },
           },
-          // 棒グラフオプション
+          // 棒グラフオプション (フルグラフ)
           {
             chart: {
               id: 'bar',
@@ -186,8 +264,14 @@ const TemperatureGraph: FC<Props> = (props) => {
         series: [
           {
             name: '体温',
-            data: periodData.map(({ temperature, createdAt }) => {
-              return { x: new Date(createdAt as string).getTime(), y: temperature }
+            data: graphData.map(({ temperature, createdAt }) => {
+              return {
+                x:
+                  props.type === 'mini'
+                    ? getCorrectDate(createdAt, 'dd') + '日'
+                    : new Date(createdAt as string).getTime(),
+                y: temperature,
+              }
             }),
           },
         ],
@@ -210,6 +294,7 @@ const TemperatureGraph: FC<Props> = (props) => {
     if (props.type === 'mini') {
       return (
         <>
+          <div className={classes.title}>最近の体温</div>
           <div className={classes.miniGraph}>
             <Chart type="area" options={graphOption.options[0]} series={graphOption.series} height="300px" />
           </div>
@@ -221,8 +306,8 @@ const TemperatureGraph: FC<Props> = (props) => {
       return (
         <>
           <div className={classes.fullGraph}>
-            <Chart type="area" options={graphOption.options[0]} series={graphOption.series} height="70%" />
-            <Chart type="bar" options={graphOption.options[1]} series={graphOption.series} height="30%" />
+            <Chart type="area" options={graphOption.options[1]} series={graphOption.series} height="70%" />
+            <Chart type="bar" options={graphOption.options[2]} series={graphOption.series} height="30%" />
           </div>
         </>
       )
@@ -236,10 +321,13 @@ export default TemperatureGraph
 
 const useStyles = makeStyles((theme: Theme) => ({
   miniGraph: {
-    padding: '2em 0 0',
-    [theme.breakpoints.up('lg')]: {
-      padding: '60px 40px 40px',
-    },
+    margin: '1em 0 0',
+  },
+  title: {
+    color: 'var(--c-primary)',
+    fontSize: '1.4em',
+    fontWeight: 'bold',
+    textAlign: 'right',
   },
   fullGraph: {
     height: '80vh',

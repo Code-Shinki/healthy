@@ -21,7 +21,7 @@ export default DrawerMenu
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
-    padding: '30px 0 0',
+    padding: '30px 0 60px',
     overflow: 'hidden',
     [theme.breakpoints.up('lg')]: {
       padding: '40px 0 40px 250px',

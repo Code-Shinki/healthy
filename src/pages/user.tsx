@@ -97,7 +97,6 @@ const User: NextPage = () => {
                 value={name ? name : ''}
                 autoComplete="name"
                 required
-                fullWidth
                 margin="dense"
                 onChange={changeName}
                 className={classes.input}
@@ -131,7 +130,6 @@ const User: NextPage = () => {
                 inputProps={{ step: '0.1' }}
                 value={height ? height : ''}
                 required
-                fullWidth
                 margin="dense"
                 onChange={changeHeight}
                 className={classes.input}
@@ -148,7 +146,6 @@ const User: NextPage = () => {
                 inputProps={{ step: '0.1' }}
                 value={weight ? weight : ''}
                 required
-                fullWidth
                 margin="dense"
                 onChange={changeWeight}
                 className={classes.input}
@@ -163,7 +160,6 @@ const User: NextPage = () => {
                 name="doctor"
                 value={doctor ? doctor : ''}
                 required
-                fullWidth
                 margin="dense"
                 onChange={changeDoctor}
                 className={classes.input}
@@ -192,10 +188,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   label: {
-    padding: '0 0 0 .3em',
+    padding: '.2em 0',
     color: 'var(--c-primary)',
     fontSize: '1.2em',
     fontWeight: 'bold',
+    textAlign: 'center',
+    backgroundColor: '#DFEDF4',
+    borderBottom: '3px solid var(--c-primary)',
+    display: 'block',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -205,15 +205,24 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   wrapper: {
-    margin: '2em 0',
+    maxWidth: '90%',
+    margin: '2em auto',
   },
   input: {
+    width: '100%',
+    '& > div': {
+      width: '90%',
+      margin: '0 auto',
+    },
     '& input': {
       padding: '.8em .5em',
+      textAlign: 'center',
     },
   },
   radio: {
     margin: '8px 0 4px',
+    display: 'flex',
+    justifyContent: 'space-around',
     '& svg': {
       fontSize: '2.3rem',
     },

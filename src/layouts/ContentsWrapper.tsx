@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: 5,
     boxShadow: '0 1px 4px rgba(0, 0, 0, .15)',
     position: 'relative',
-    '& h1': {
+    '& h1, & h2': {
       width: '90%',
       padding: '.4em .2em',
       margin: 0,
