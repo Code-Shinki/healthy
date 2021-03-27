@@ -7,6 +7,7 @@ import 'normalize.css'
 import React, { useEffect } from 'react'
 import { RecoilRoot, useRecoilState } from 'recoil'
 import { getUserDataset } from 'requests/userDataset'
+import { getCorrectDate } from 'scripts/date'
 import { currentUserState } from 'states/currentUser'
 import { userDatasetState } from 'states/userDataset'
 import 'styles/assets/variables.scss'
@@ -33,6 +34,7 @@ const AppInit = () => {
 
   useEffect(() => {
     ;(async () => {
+      // Fetch UserData
       if (currentUser && !userDataset) {
         const snapshot = await getUserDataset(currentUser.uid, { cache: true })
         if (!snapshot || !Object.keys(snapshot).length) {
@@ -44,6 +46,17 @@ const AppInit = () => {
       }
     })()
   }, [currentUser])
+
+  useEffect(() => {
+    // Go to Checkup
+    if (userDataset) {
+      const latestData = userDataset.health.slice(-1)[0]
+      const lasttime = Number(getCorrectDate(latestData.createdAt, 'yyyyMMdd'))
+      const today = Number(getCorrectDate(new Date(), 'yyyyMMdd'))
+
+      today - lasttime !== 0 && router.push('checkup')
+    }
+  }, [userDataset])
 
   return null
 }

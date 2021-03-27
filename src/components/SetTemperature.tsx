@@ -1,5 +1,5 @@
 import Spinner from 'components/Spinner'
-import React, { FC, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { isCheckupValidState } from 'states/isCheckupValid'
 import { todaysHealthDataState } from 'states/todaysHealthData'
@@ -9,39 +9,38 @@ const SetTemperature: FC = () => {
   const userDataset = useRecoilValue(userDatasetState)
   const [todaysHealthData, setTodaysHealthData] = useRecoilState(todaysHealthDataState)
   const setIsValid = useSetRecoilState(isCheckupValidState)
-  const [tips, setTips] = useState('体温を入力してください')
+  const [tips, setTips] = useState('前回と変わりないですか？')
+  const [temperature, setTemperature] = useState(todaysHealthData.temperature ? todaysHealthData.temperature : 36.5)
   let prevTemperature = 36.5
 
   useEffect(() => {
     if (!userDataset) return
-    if (userDataset.health.length !== 0) {
+    if (userDataset.health.length) {
       prevTemperature = userDataset.health.slice(-1)[0].temperature
-      setTips(`前回と変わりないですか？`)
+      if (!todaysHealthData.temperature) {
+        setTemperature(prevTemperature)
+      } else {
+        changeTips(todaysHealthData.temperature)
+      }
     }
+  }, [])
+
+  useEffect(() => {
+    if (!userDataset) return
     setTodaysHealthData({
       ...todaysHealthData,
-      temperature: prevTemperature,
+      temperature: temperature,
     })
-  }, [userDataset])
+    prevTemperature = userDataset.health.slice(-1)[0].temperature
+    changeTips(temperature)
+  }, [temperature])
 
-  const addTodaysTemperature = (todaysTemperature: number) => {
-    if (validate(todaysTemperature)) {
-      setTodaysHealthData({
-        ...todaysHealthData,
-        temperature: todaysTemperature,
-      })
+  const changeTemperature = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = Number(event.target.value)
+    if (validate(value)) {
+      setTemperature(value)
       setIsValid(true)
     }
-  }
-
-  const validate = (value: number) => {
-    if (value >= 35.0 && value <= 40.0) {
-      changeTips(value)
-      return true
-    }
-    setIsValid(false)
-    setTips(`35.0～40.0までの数字を入力してください。`)
-    return false
   }
 
   const changeTips = (value: number) => {
@@ -53,22 +52,24 @@ const SetTemperature: FC = () => {
     } else if (Math.sign(diff) === -1) {
       setTips(`前回よりも ${absDiff}℃ 低いですね…`)
     } else {
-      setTips('前回と変わりないですね！')
+      setTips('前回と変わりないですか？')
     }
+  }
+
+  const validate = (value: number) => {
+    if (value >= 35.0 && value <= 40.0) {
+      return true
+    }
+    setIsValid(false)
+    setTips(`35.0～40.0までの数字を入力してください。`)
+    return false
   }
 
   if (userDataset) {
     return (
       <>
         <div>
-          <input
-            type="number"
-            max="40"
-            min="35"
-            step="0.1"
-            defaultValue={prevTemperature}
-            onChange={(e) => addTodaysTemperature(Number(e.target.value))}
-          />
+          <input type="number" max="40" min="35" step="0.1" value={temperature} onChange={changeTemperature} />
         </div>
         <div>{tips}</div>
       </>

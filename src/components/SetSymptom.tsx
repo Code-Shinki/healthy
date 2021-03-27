@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { todaysHealthDataState } from 'states/todaysHealthData'
 import { userDatasetState } from 'states/userDataset'
@@ -10,20 +10,19 @@ const SetSymptom: FC = () => {
 
   useEffect(() => {
     if (!userDataset) return
-    if (userDataset.health.length !== 0) {
-      const prevSymptoms = userDataset.health.slice(-1)[0].symptom
+    if (userDataset.health.length !== 0 && !todaysHealthData.symptom.length) {
       setTodaysHealthData({
         ...todaysHealthData,
-        symptom: [...todaysHealthData.symptom, ...prevSymptoms],
+        symptom: userDataset.health.slice(-1)[0].symptom,
       })
     }
   }, [userDataset])
 
-  const addTmpSymptom = (tmpSymptom: string) => {
-    setTmpSymptom(tmpSymptom)
+  const changeTmpSymptom = (event: ChangeEvent<HTMLInputElement>) => {
+    setTmpSymptom(event.target.value)
   }
 
-  const addTodaysSymptom = (event: React.FormEvent<HTMLFormElement>) => {
+  const addTodaysSymptom = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (validate()) {
       setTodaysHealthData({
@@ -64,7 +63,7 @@ const SetSymptom: FC = () => {
       </ul>
 
       <form onSubmit={(e) => addTodaysSymptom(e)}>
-        <input type="text" value={tmpSymptom} maxLength={20} onChange={(e) => addTmpSymptom(e.target.value)} required />
+        <input type="text" value={tmpSymptom} maxLength={20} onChange={changeTmpSymptom} required />
         <button type="submit">追加する</button>
       </form>
     </>

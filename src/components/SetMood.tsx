@@ -10,11 +10,20 @@ const SetMood: FC = () => {
 
   const addTodaysMood = (todaysMood: string) => {
     if (validate(todaysMood)) {
-      checkupDataset.init.submit.next = todaysMood
-      setTodaysHealthData({
-        ...todaysHealthData,
-        mood: todaysMood,
-      })
+      checkupDataset.init.button.next = todaysMood
+      checkupDataset.symptom.button.prev = todaysMood
+      if (todaysMood === 'good') {
+        setTodaysHealthData({
+          ...todaysHealthData,
+          mood: todaysMood,
+          symptom: [], // setSymptomから戻ってきてGoodを選択した場合はsymptomを空にする
+        })
+      } else {
+        setTodaysHealthData({
+          ...todaysHealthData,
+          mood: todaysMood,
+        })
+      }
     }
   }
 
@@ -30,9 +39,24 @@ const SetMood: FC = () => {
   return (
     <>
       <div>
-        <input type="radio" name="mood" onChange={() => addTodaysMood('good')} />
-        <input type="radio" name="mood" onChange={() => addTodaysMood('fine')} />
-        <input type="radio" name="mood" onChange={() => addTodaysMood('bad')} />
+        <input
+          type="radio"
+          name="mood"
+          checked={todaysHealthData.mood === 'good'}
+          onChange={() => addTodaysMood('good')}
+        />
+        <input
+          type="radio"
+          name="mood"
+          checked={todaysHealthData.mood === 'fine'}
+          onChange={() => addTodaysMood('fine')}
+        />
+        <input
+          type="radio"
+          name="mood"
+          checked={todaysHealthData.mood === 'bad'}
+          onChange={() => addTodaysMood('bad')}
+        />
       </div>
     </>
   )

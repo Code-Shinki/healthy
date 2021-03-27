@@ -1,8 +1,12 @@
+import { Button, ButtonGroup, Theme } from '@material-ui/core'
+import ChatIcon from '@material-ui/icons/Chat'
+import { makeStyles } from '@material-ui/styles'
 import SetMood from 'components/SetMood'
 import SetSymptom from 'components/SetSymptom'
 import SetTemperature from 'components/SetTemperature'
 import Spinner from 'components/Spinner'
 import checkupDataset from 'datasets/checkupDataset.json'
+import ContentsWrapper from 'layouts/ContentsWrapper'
 import { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -18,13 +22,14 @@ import { UserHealthData } from 'types/userDataset'
 
 const Checkup: NextPage = () => {
   const router = useRouter()
+  const classes = useStyles()
   const currentUser = useRecoilValue(currentUserState)
   const [userDataset, setUserDataset] = useRecoilState(userDatasetState)
   const [todaysHealthData, setTodaysHealthData] = useRecoilState(todaysHealthDataState)
   const isValid = useRecoilValue(isCheckupValidState)
   const [currentStep, setCurrentStep] = useState('init')
   const [question, setQuestion] = useState('')
-  const [submit, setSubmit] = useState({ message: '', next: '' })
+  const [button, setButton] = useState({ prev: '', next: '', nextMessage: '' })
   const dataset: CheckupDataset = checkupDataset
 
   useEffect(() => {
@@ -36,7 +41,7 @@ const Checkup: NextPage = () => {
       ...todaysHealthData,
       createdAt: new Date().toString(),
     })
-    displayNextContents(currentStep, dataset[currentStep])
+    changeDisplayContents(currentStep, dataset[currentStep])
   }, [])
 
   useEffect(() => {
@@ -53,10 +58,10 @@ const Checkup: NextPage = () => {
     }
   }, [currentStep])
 
-  const displayNextContents = (nextStep: string, nextDataset: CheckupDataset[string]) => {
-    setCurrentStep(nextStep)
-    setQuestion(nextDataset.question)
-    setSubmit(nextDataset.submit)
+  const changeDisplayContents = (step: string, dataset: CheckupDataset[string]) => {
+    setCurrentStep(step)
+    setQuestion(dataset.question)
+    setButton(dataset.button)
   }
 
   if (currentUser) {
@@ -65,26 +70,50 @@ const Checkup: NextPage = () => {
         <Head>
           <title>Checkup</title>
         </Head>
+        <ContentsWrapper class={classes.root}>
+          <h1>
+            <ChatIcon style={{ fontSize: '1.4em' }} />
+            今日の体調
+          </h1>
+          <div className={classes.container}>
+            <div className={classes.question}>{question}</div>
 
-        <div>{question}</div>
+            {currentStep === 'init' && <SetMood />}
+            {currentStep === 'good' && <SetTemperature />}
+            {currentStep === 'fine' && <SetTemperature />}
+            {currentStep === 'bad' && <SetTemperature />}
+            {currentStep === 'symptom' && <SetSymptom />}
 
-        {currentStep === 'init' && <SetMood />}
-        {currentStep === 'good' && <SetTemperature />}
-        {currentStep === 'fine' && <SetTemperature />}
-        {currentStep === 'bad' && <SetTemperature />}
-        {currentStep === 'symptom' && <SetSymptom />}
-
-        {currentStep === 'complete' ? (
-          <Spinner />
-        ) : (
-          <button
-            type="button"
-            onClick={() => displayNextContents(submit.next, dataset[submit.next])}
-            disabled={!isValid}
-          >
-            {submit.message}
-          </button>
-        )}
+            {currentStep === 'complete' ? (
+              <Spinner />
+            ) : (
+              <ButtonGroup
+                variant="text"
+                color="primary"
+                aria-label="contained primary button group"
+                fullWidth
+                className={classes.button}
+              >
+                <Button
+                  type="button"
+                  size="large"
+                  onClick={() => changeDisplayContents(button.prev, dataset[button.prev])}
+                  disabled={currentStep === 'init'}
+                >
+                  戻る
+                </Button>
+                <Button
+                  type="button"
+                  size="large"
+                  onClick={() => changeDisplayContents(button.next, dataset[button.next])}
+                  disabled={!isValid}
+                >
+                  {button.nextMessage}
+                </Button>
+              </ButtonGroup>
+            )}
+          </div>
+        </ContentsWrapper>
       </>
     )
   }
@@ -93,6 +122,29 @@ const Checkup: NextPage = () => {
 }
 
 export default Checkup
+
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    width: '95%',
+    maxWidth: 800,
+    [theme.breakpoints.up('lg')]: {
+      width: '90%',
+    },
+  },
+  container: {
+    padding: '4em 1em 2em',
+  },
+  question: {
+    marginBottom: '1.5em',
+    color: 'var(--c-primary)',
+    fontSize: '1.4em',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  button: {
+    margin: '1.5em auto 0',
+  },
+}))
 
 export const getStaticProps: GetStaticProps = async () => {
   return {

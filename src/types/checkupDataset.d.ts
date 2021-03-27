@@ -1,6 +1,6 @@
 export type CheckupDataset = {
   [key: string]: {
     question: string
-    submit: { message: string; next: string }
+    button: { prev: string; next: string; nextMessage: string }
   }
 }

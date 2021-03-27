@@ -1,26 +1,26 @@
 {
   "init": {
     "question": "調子はいかがですか？",
-    "submit": { "message": "次へ", "next": "" }
+    "button": { "prev": "", "next": "", "nextMessage": "次へ" }
   },
   "good": {
     "question": "それでは本日は体温だけ記録しておきましょう！",
-    "submit": { "message": "記録する", "next": "complete" }
+    "button": { "prev": "init", "next": "complete", "nextMessage": "記録する" }
   },
   "fine": {
-    "question": "なるほど…熱はありますか？",
-    "submit": { "message": "次へ", "next": "symptom" }
+    "question": "熱はありますか？",
+    "button": { "prev": "init", "next": "symptom", "nextMessage": "次へ" }
   },
   "bad": {
-    "question": "なるほど…体温はどうでしょうか？",
-    "submit": { "message": "次へ", "next": "symptom" }
+    "question": "体温はどうでしょうか？",
+    "button": { "prev": "init", "next": "symptom", "nextMessage": "次へ" }
   },
   "symptom": {
-    "question": "今日はどんな症状がありますか？",
-    "submit": { "message": "記録する", "next": "complete" }
+    "question": "どんな症状がありますか？",
+    "button": { "prev": "", "next": "complete", "nextMessage": "記録する" }
   },
   "complete": {
     "question": "データを記録しています",
-    "submit": { "message": "", "next": "" }
+    "button": { "prev": "", "next": "", "nextMessage": "" }
   }
 }
