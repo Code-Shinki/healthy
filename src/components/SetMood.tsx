@@ -1,3 +1,5 @@
+import { Grid } from '@material-ui/core'
+import { getMoodIcon } from 'components/moodIcon'
 import checkupDataset from 'datasets/checkupDataset.json'
 import React, { FC } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil'
@@ -38,26 +40,38 @@ const SetMood: FC = () => {
 
   return (
     <>
-      <div>
-        <input
-          type="radio"
-          name="mood"
-          checked={todaysHealthData.mood === 'good'}
-          onChange={() => addTodaysMood('good')}
-        />
-        <input
-          type="radio"
-          name="mood"
-          checked={todaysHealthData.mood === 'fine'}
-          onChange={() => addTodaysMood('fine')}
-        />
-        <input
-          type="radio"
-          name="mood"
-          checked={todaysHealthData.mood === 'bad'}
-          onChange={() => addTodaysMood('bad')}
-        />
-      </div>
+      <Grid container justify="space-around">
+        <div>
+          <label htmlFor="good">{getMoodIcon('good', '4.5em')}</label>
+          <input
+            id="good"
+            type="radio"
+            name="mood"
+            checked={todaysHealthData.mood === 'good'}
+            onChange={() => addTodaysMood('good')}
+          />
+        </div>
+        <div>
+          <label htmlFor="fine">{getMoodIcon('fine', '4.5em')}</label>
+          <input
+            id="fine"
+            type="radio"
+            name="mood"
+            checked={todaysHealthData.mood === 'fine'}
+            onChange={() => addTodaysMood('fine')}
+          />
+        </div>
+        <div>
+          <label htmlFor="bad">{getMoodIcon('bad', '4.5em')}</label>
+          <input
+            id="bad"
+            type="radio"
+            name="mood"
+            checked={todaysHealthData.mood === 'bad'}
+            onChange={() => addTodaysMood('bad')}
+          />
+        </div>
+      </Grid>
     </>
   )
 }

@@ -186,11 +186,11 @@ const useStyles = makeStyles(() =>
       minWidth: 'auto',
     },
     drawer: {
-      width: 250,
+      width: 280,
       flexShrink: 0,
     },
     drawerPaper: {
-      width: 250,
+      width: 280,
       background: "url('/img/dashboard.jpg')",
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
@@ -216,6 +216,7 @@ const useStyles = makeStyles(() =>
       borderRadius: 8,
     },
     iconWrapper: {
+      minWidth: '70px',
       justifyContent: 'center',
     },
     icon: {

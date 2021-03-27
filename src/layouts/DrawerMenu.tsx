@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: '30px 0 60px',
     overflow: 'hidden',
     [theme.breakpoints.up('lg')]: {
-      padding: '40px 0 40px 250px',
+      padding: '40px 0 40px 280px',
     },
   },
 }))
