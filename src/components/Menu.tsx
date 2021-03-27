@@ -37,7 +37,11 @@ const Menu: FC = () => {
   const resetIsCheckupValid = useResetRecoilState(isCheckupValidState)
 
   const handleChange = (_event: React.ChangeEvent<Record<string, unknown>>, newValue: string) => {
-    router.push(`${newValue}`)
+    if (newValue === 'logout') {
+      logout()
+    } else {
+      router.push(`${newValue}`)
+    }
   }
 
   const logout = async () => {
@@ -131,10 +135,36 @@ const Menu: FC = () => {
   if (!matches) {
     return (
       <BottomNavigation value={path} showLabels onChange={handleChange} className={classes.bottomNavRoot}>
-        <BottomNavigationAction label="ホーム" value="/dashboard" icon={<HomeIcon fontSize="large" />} />
-        <BottomNavigationAction label="体調記録" value="/log" icon={<AssignmentIcon fontSize="large" />} />
-        <BottomNavigationAction label="体温グラフ" value="/temperature" icon={<EqualizerIcon fontSize="large" />} />
-        <BottomNavigationAction label="ユーザー" value="/user" icon={<PersonIcon fontSize="large" />} />
+        <BottomNavigationAction
+          label="ホーム"
+          value="/dashboard"
+          icon={<HomeIcon fontSize="large" />}
+          className={classes.bottomNavItem}
+        />
+        <BottomNavigationAction
+          label="体調記録"
+          value="/log"
+          icon={<AssignmentIcon fontSize="large" />}
+          className={classes.bottomNavItem}
+        />
+        <BottomNavigationAction
+          label="体温グラフ"
+          value="/temperature"
+          icon={<EqualizerIcon fontSize="large" />}
+          className={classes.bottomNavItem}
+        />
+        <BottomNavigationAction
+          label="ユーザー"
+          value="/user"
+          icon={<PersonIcon fontSize="large" />}
+          className={classes.bottomNavItem}
+        />
+        <BottomNavigationAction
+          label="ログアウト"
+          value="logout"
+          icon={<ExitToAppIcon fontSize="large" />}
+          className={classes.bottomNavItem}
+        />
       </BottomNavigation>
     )
   }
@@ -151,6 +181,9 @@ const useStyles = makeStyles(() =>
       boxShadow: '0 0 4px rgba(0, 0, 0, .15)',
       position: 'fixed',
       bottom: 0,
+    },
+    bottomNavItem: {
+      minWidth: 'auto',
     },
     drawer: {
       width: 250,
