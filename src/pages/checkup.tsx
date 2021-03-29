@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Theme } from '@material-ui/core'
+import { Button, ButtonGroup, CircularProgress, Theme } from '@material-ui/core'
 import ChatIcon from '@material-ui/icons/Chat'
 import { makeStyles } from '@material-ui/styles'
 import SetMood from 'components/SetMood'
@@ -85,7 +85,7 @@ const Checkup: NextPage = () => {
             {currentStep === 'symptom' && <SetSymptom />}
 
             {currentStep === 'complete' ? (
-              <Spinner />
+              <CircularProgress className={classes.progress} />
             ) : (
               <ButtonGroup
                 variant="text"
@@ -135,14 +135,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: '4em 1em 2em',
   },
   question: {
-    marginBottom: '1.5em',
+    margin: '1em 0 2em',
     color: 'var(--c-primary)',
     fontSize: '1.4em',
     fontWeight: 'bold',
     textAlign: 'center',
   },
   button: {
-    margin: '1.5em auto 0',
+    margin: '3em 0 0',
+  },
+  progress: {
+    margin: '2em auto 1em',
+    display: 'block',
   },
 }))
 

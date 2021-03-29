@@ -1,3 +1,5 @@
+import { TextField } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 import Spinner from 'components/Spinner'
 import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
@@ -6,6 +8,7 @@ import { todaysHealthDataState } from 'states/todaysHealthData'
 import { userDatasetState } from 'states/userDataset'
 
 const SetTemperature: FC = () => {
+  const classes = useStyles()
   const userDataset = useRecoilValue(userDatasetState)
   const [todaysHealthData, setTodaysHealthData] = useRecoilState(todaysHealthDataState)
   const setIsValid = useSetRecoilState(isCheckupValidState)
@@ -68,10 +71,19 @@ const SetTemperature: FC = () => {
   if (userDataset) {
     return (
       <>
-        <div>
-          <input type="number" max="40" min="35" step="0.1" value={temperature} onChange={changeTemperature} />
-        </div>
-        <div>{tips}</div>
+        <TextField
+          id="temperature"
+          name="temperature"
+          type="number"
+          inputProps={{ step: '0.1', max: '40', min: '35' }}
+          value={temperature}
+          required
+          onChange={changeTemperature}
+          variant="outlined"
+          className={classes.input}
+          fullWidth
+        />
+        <div className={classes.tips}>{tips}</div>
       </>
     )
   }
@@ -80,3 +92,23 @@ const SetTemperature: FC = () => {
 }
 
 export default SetTemperature
+
+const useStyles = makeStyles(() => ({
+  input: {
+    '& > div': {
+      width: '95%',
+      maxWidth: '300px',
+      margin: '0 auto',
+    },
+    '& input': {
+      fontSize: '1.2em !important',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+  },
+  tips: {
+    margin: '2em auto 0',
+    color: 'var(--c-red)',
+    textAlign: 'center',
+  },
+}))

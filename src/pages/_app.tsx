@@ -49,7 +49,7 @@ const AppInit = () => {
 
   useEffect(() => {
     // Go to Checkup
-    if (userDataset) {
+    if (userDataset && router.pathname !== '/') {
       const latestData = userDataset.health.slice(-1)[0]
       const lasttime = Number(getCorrectDate(latestData.createdAt, 'yyyyMMdd'))
       const today = Number(getCorrectDate(new Date(), 'yyyyMMdd'))

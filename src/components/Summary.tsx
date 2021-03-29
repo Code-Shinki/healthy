@@ -1,7 +1,7 @@
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import InsufficientData from 'components/InsufficientData'
-import { getMoodIcon } from 'components/moodIcon'
+import { getMoodIcon } from 'components/MoodIcons'
 import Spinner from 'components/Spinner'
 import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
@@ -113,10 +113,11 @@ const useStyles = makeStyles(() => ({
       padding: '.3em .7em',
       margin: '.6em 0 0 .5em',
       color: 'var(--c-red)',
-      fontSize: '14px !important',
+      fontSize: '1.4rem !important',
       fontWeight: 'bold',
       border: '1px solid var(--c-red)',
       borderLeft: '4px solid var(--c-red)',
+      boxShadow: '2px 2px 3px rgba(0, 0, 0, .15)',
     },
   },
   link: {

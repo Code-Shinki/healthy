@@ -1,7 +1,7 @@
 import { Grid, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import InsufficientData from 'components/InsufficientData'
-import { getMoodIcon } from 'components/moodIcon'
+import { getMoodIcon } from 'components/MoodIcons'
 import Spinner from 'components/Spinner'
 import React, { FC, Fragment, useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'

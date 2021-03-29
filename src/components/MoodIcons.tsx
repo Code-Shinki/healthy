@@ -7,6 +7,7 @@ import styles from 'styles/components/moodIcon.module.scss'
 export const getMoodIcon = (mood: string, size: string) => {
   const commonStyle = {
     fontSize: size,
+    filter: 'drop-shadow(5px 5px 0 rgba(0, 0, 0, .1))',
   }
 
   if (mood === 'good') return <MoodIcon className={styles.ball} style={{ ...commonStyle, color: 'var(--c-green)' }} />
