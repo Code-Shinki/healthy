@@ -46,3 +46,11 @@ export const postUserDataset = async (uid: string, data: UserDataset) => {
     alert(err.message)
   }
 }
+
+export const deleteUserDataset = async (uid: string) => {
+  try {
+    await db.collection('users').doc(uid).delete()
+  } catch (err) {
+    alert(err.message)
+  }
+}

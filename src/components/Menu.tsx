@@ -14,17 +14,20 @@ import EqualizerIcon from '@material-ui/icons/Equalizer'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import HomeIcon from '@material-ui/icons/Home'
 import PersonIcon from '@material-ui/icons/Person'
+import LogoutDialog from 'components/LogoutDialog'
 import NextImage from 'next/image'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import React, { FC } from 'react'
-import { useResetRecoilState } from 'recoil'
+import React, { FC, useState } from 'react'
+import { useRecoilValue, useResetRecoilState } from 'recoil'
+import { deleteUserDataset } from 'requests/userDataset'
+import { currentUserState } from 'states/currentUser'
 import { isCheckupValidState } from 'states/isCheckupValid'
 import { todaysHealthDataState } from 'states/todaysHealthData'
 import { userDatasetState } from 'states/userDataset'
 import styles from 'styles/components/menu.module.scss'
 import { SITE_TITLE } from 'utils/env'
-import { auth } from 'utils/firebase'
+// import { auth } from 'utils/firebase'
 
 const Menu: FC = () => {
   const router = useRouter()
@@ -32,23 +35,35 @@ const Menu: FC = () => {
   const classes = useStyles()
   const matches = useMediaQuery(theme.breakpoints.up('lg'))
   const path = router.pathname
+  const currentUser = useRecoilValue(currentUserState)
   const resetUserDataset = useResetRecoilState(userDatasetState)
   const resetTodaysHealthData = useResetRecoilState(todaysHealthDataState)
   const resetIsCheckupValid = useResetRecoilState(isCheckupValidState)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleChange = (_event: React.ChangeEvent<Record<string, unknown>>, newValue: string) => {
     if (newValue === 'logout') {
-      logout()
+      toggleIsModalOpen()
     } else {
       router.push(`${newValue}`)
     }
   }
 
   const logout = async () => {
+    if (!currentUser) return
+    // 共通ステートをリセット
     resetUserDataset()
     resetTodaysHealthData()
     resetIsCheckupValid()
-    await auth.signOut().catch((err) => alert(err.message))
+    // ユーザーデータを削除
+    await deleteUserDataset(currentUser.uid)
+    // アカウントを削除
+    await currentUser.delete().catch((err) => alert(err.message))
+    // await auth.signOut().catch((err) => alert(err.message))
+  }
+
+  const toggleIsModalOpen = () => {
+    setIsModalOpen(!isModalOpen)
   }
 
   if (matches) {
@@ -119,7 +134,7 @@ const Menu: FC = () => {
               </NextLink>
             </List>
             <List className={classes.drawerList}>
-              <ListItem button onClick={logout} className={classes.drawerListItem}>
+              <ListItem button onClick={toggleIsModalOpen} className={classes.drawerListItem}>
                 <ListItemIcon className={classes.iconWrapper}>
                   <ExitToAppIcon className={classes.icon} />
                 </ListItemIcon>
@@ -128,44 +143,48 @@ const Menu: FC = () => {
             </List>
           </div>
         </Drawer>
+        <LogoutDialog isModalOpen={isModalOpen} toggleIsModalOpen={toggleIsModalOpen} logout={logout} />
       </>
     )
   }
 
   if (!matches) {
     return (
-      <BottomNavigation value={path} showLabels onChange={handleChange} className={classes.bottomNavRoot}>
-        <BottomNavigationAction
-          label="ホーム"
-          value="/dashboard"
-          icon={<HomeIcon fontSize="large" />}
-          className={classes.bottomNavItem}
-        />
-        <BottomNavigationAction
-          label="体調記録"
-          value="/log"
-          icon={<AssignmentIcon fontSize="large" />}
-          className={classes.bottomNavItem}
-        />
-        <BottomNavigationAction
-          label="体温グラフ"
-          value="/temperature"
-          icon={<EqualizerIcon fontSize="large" />}
-          className={classes.bottomNavItem}
-        />
-        <BottomNavigationAction
-          label="ユーザー"
-          value="/user"
-          icon={<PersonIcon fontSize="large" />}
-          className={classes.bottomNavItem}
-        />
-        <BottomNavigationAction
-          label="ログアウト"
-          value="logout"
-          icon={<ExitToAppIcon fontSize="large" />}
-          className={classes.bottomNavItem}
-        />
-      </BottomNavigation>
+      <>
+        <BottomNavigation value={path} showLabels onChange={handleChange} className={classes.bottomNavRoot}>
+          <BottomNavigationAction
+            label="ホーム"
+            value="/dashboard"
+            icon={<HomeIcon fontSize="large" />}
+            className={classes.bottomNavItem}
+          />
+          <BottomNavigationAction
+            label="体調記録"
+            value="/log"
+            icon={<AssignmentIcon fontSize="large" />}
+            className={classes.bottomNavItem}
+          />
+          <BottomNavigationAction
+            label="体温グラフ"
+            value="/temperature"
+            icon={<EqualizerIcon fontSize="large" />}
+            className={classes.bottomNavItem}
+          />
+          <BottomNavigationAction
+            label="ユーザー"
+            value="/user"
+            icon={<PersonIcon fontSize="large" />}
+            className={classes.bottomNavItem}
+          />
+          <BottomNavigationAction
+            label="ログアウト"
+            value="logout"
+            icon={<ExitToAppIcon fontSize="large" />}
+            className={classes.bottomNavItem}
+          />
+        </BottomNavigation>
+        <LogoutDialog isModalOpen={isModalOpen} toggleIsModalOpen={toggleIsModalOpen} logout={logout} />
+      </>
     )
   }
 
