@@ -1,0 +1,33 @@
+.root {
+  padding: 1.5em 1.3em;
+  margin: 2em auto 0;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.icon {
+  padding: 0.9em 1.1em;
+  margin: 0;
+  color: #fff;
+  background: var(--c-primary);
+  border-radius: 5px;
+  box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.15), 0 7px 10px -5px rgba(0, 0, 0, 0.15);
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 30px;
+  transform: translateY(-40%);
+
+  & svg {
+    font-size: 3.2em;
+  }
+}
+
+.h2 {
+  margin: 0;
+  color: var(--c-primary);
+  font-size: 1.4em;
+  text-align: right;
+}

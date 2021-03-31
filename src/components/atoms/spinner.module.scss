@@ -1,0 +1,116 @@
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.notice {
+  width: 100%;
+  margin: 2em 0 0;
+  color: var(--c-primary);
+  font-weight: bold;
+  text-align: center;
+}
+
+$dot-width: 15px !default;
+$dot-height: 15px !default;
+$dot-radius: $dot-width/2 !default;
+
+$dot-color: var(--c-primary) !default;
+$dot-bg-color: $dot-color !default;
+$dot-before-color: $dot-color !default;
+$dot-after-color: $dot-color !default;
+
+$dot-spacing: $dot-width + $dot-width/2 !default;
+
+@mixin dot(
+  $width: $dot-width,
+  $height: $dot-height,
+  $radius: $dot-radius,
+  $bg-color: $dot-bg-color,
+  $color: $dot-color
+) {
+  width: $width;
+  height: $height;
+  border-radius: $radius;
+  background-color: $bg-color;
+  color: $color;
+}
+
+$spacing: $dot-width + 6px;
+$top-pos: $spacing/2;
+$left-pos: -9999px;
+$x1: -$left-pos - $top-pos;
+$x2: -$left-pos - $top-pos + $spacing;
+$y1: 0;
+$y2: -$spacing;
+
+.dot-bricks {
+  position: relative;
+  top: $top-pos;
+  left: $left-pos;
+
+  @include dot;
+
+  box-shadow: $x1 $y2 0 0 $dot-before-color, $x1 $y1 0 0 $dot-color, $x2 $y1 0 0 $dot-after-color;
+  animation: dot-bricks 2s infinite ease;
+}
+
+@keyframes dot-bricks {
+  0% {
+    box-shadow: $x1 $y2 0 0 $dot-before-color, $x1 $y1 0 0 $dot-color, $x2 $y1 0 0 $dot-after-color;
+  }
+
+  8.333% {
+    box-shadow: $x2 $y2 0 0 $dot-before-color, $x1 $y1 0 0 $dot-color, $x2 $y1 0 0 $dot-after-color;
+  }
+
+  16.667% {
+    box-shadow: $x2 $y2 0 0 $dot-before-color, $x1 $y2 0 0 $dot-color, $x2 $y1 0 0 $dot-after-color;
+  }
+
+  25% {
+    box-shadow: $x2 $y2 0 0 $dot-before-color, $x1 $y2 0 0 $dot-color, $x1 $y1 0 0 $dot-after-color;
+  }
+
+  33.333% {
+    box-shadow: $x2 $y1 0 0 $dot-before-color, $x1 $y2 0 0 $dot-color, $x1 $y1 0 0 $dot-after-color;
+  }
+
+  41.667% {
+    box-shadow: $x2 $y1 0 0 $dot-before-color, $x2 $y2 0 0 $dot-color, $x1 $y1 0 0 $dot-after-color;
+  }
+
+  50% {
+    box-shadow: $x2 $y1 0 0 $dot-before-color, $x2 $y2 0 0 $dot-color, $x1 $y2 0 0 $dot-after-color;
+  }
+
+  58.333% {
+    box-shadow: $x1 $y1 0 0 $dot-before-color, $x2 $y2 0 0 $dot-color, $x1 $y2 0 0 $dot-after-color;
+  }
+
+  66.666% {
+    box-shadow: $x1 $y1 0 0 $dot-before-color, $x2 $y1 0 0 $dot-color, $x1 $y2 0 0 $dot-after-color;
+  }
+
+  75% {
+    box-shadow: $x1 $y1 0 0 $dot-before-color, $x2 $y1 0 0 $dot-color, $x2 $y2 0 0 $dot-after-color;
+  }
+
+  83.333% {
+    box-shadow: $x1 $y2 0 0 $dot-before-color, $x2 $y1 0 0 $dot-color, $x2 $y2 0 0 $dot-after-color;
+  }
+
+  91.667% {
+    box-shadow: $x1 $y2 0 0 $dot-before-color, $x1 $y1 0 0 $dot-color, $x2 $y2 0 0 $dot-after-color;
+  }
+
+  100% {
+    box-shadow: $x1 $y2 0 0 $dot-before-color, $x1 $y1 0 0 $dot-color, $x2 $y1 0 0 $dot-after-color;
+  }
+}

@@ -1,5 +1,6 @@
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
-import DrawerMenu from 'layouts/DrawerMenu'
+import DrawerMenu from 'components/organisms/drawer-menu'
+import { getFormattedDate } from 'libs/date'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -7,7 +8,6 @@ import 'normalize.css'
 import React, { useEffect } from 'react'
 import { RecoilRoot, useRecoilState } from 'recoil'
 import { getUserDataset } from 'requests/userDataset'
-import { getCorrectDate } from 'scripts/date'
 import { currentUserState } from 'states/currentUser'
 import { userDatasetState } from 'states/userDataset'
 import 'styles/assets/variables.scss'
@@ -48,11 +48,23 @@ const AppInit = () => {
   }, [currentUser])
 
   useEffect(() => {
+    const hidePage = ['/', '/404']
+    let isAvailableCheck = true
+
+    for (let i = 0; i < hidePage.length; i++) {
+      if (router.pathname === hidePage[i]) isAvailableCheck = false
+    }
+
     // Go to Checkup
-    if (userDataset && router.pathname !== '/') {
+    if (userDataset && isAvailableCheck) {
+      if (!userDataset.health.length) {
+        router.push('checkup')
+        return
+      }
+
       const latestData = userDataset.health.slice(-1)[0]
-      const lasttime = Number(getCorrectDate(latestData.createdAt, 'yyyyMMdd'))
-      const today = Number(getCorrectDate(new Date(), 'yyyyMMdd'))
+      const lasttime = Number(getFormattedDate(latestData.createdAt, 'yyyyMMdd'))
+      const today = Number(getFormattedDate(new Date(), 'yyyyMMdd'))
 
       today - lasttime !== 0 && router.push('checkup')
     }
@@ -86,10 +98,12 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
       </Head>
       <RecoilRoot>
         <MuiThemeProvider theme={theme}>
-          {pageProps.menuLayout ? (
-            <DrawerMenu>
-              <Component {...pageProps} />
-            </DrawerMenu>
+          {pageProps.DrawerMenu ? (
+            <>
+              <DrawerMenu>
+                <Component {...pageProps} />
+              </DrawerMenu>
+            </>
           ) : (
             <Component {...pageProps} />
           )}

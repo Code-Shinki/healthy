@@ -1,8 +1,8 @@
 {
-  "name": "山田 太郎",
+  "name": "山本 太郎",
   "gender": "男性",
   "height": 172,
-  "weight": 65,
+  "weight": 65.4,
   "doctor": "樫山市立中央病院",
   "createdAt": null,
   "health": [

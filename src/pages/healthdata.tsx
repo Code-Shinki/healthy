@@ -1,5 +1,4 @@
 import Spinner from 'components/atoms/spinner'
-import CheckupLayout from 'layouts/checkup-layout'
 import { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -8,7 +7,7 @@ import { useRecoilValue } from 'recoil'
 import { currentUserState } from 'states/currentUser'
 import { userDatasetState } from 'states/userDataset'
 
-const Checkup: NextPage = () => {
+const Healthdata: NextPage = () => {
   const router = useRouter()
   const currentUser = useRecoilValue(currentUserState)
   const userDataset = useRecoilValue(userDatasetState)
@@ -20,14 +19,14 @@ const Checkup: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Checkup</title>
+        <title>Log</title>
       </Head>
-      {currentUser && userDataset ? <CheckupLayout /> : <Spinner />}
+      {currentUser && userDataset ? <h1>Log</h1> : <Spinner />}
     </>
   )
 }
 
-export default Checkup
+export default Healthdata
 
 export const getStaticProps: GetStaticProps = async () => {
   return {

@@ -12,7 +12,7 @@ export type UserHealthData = {
   mood: string
   temperature: number
   symptom: [] | string[]
-  createdAt: null | string
+  createdAt: string
 }
 
 export type TodaysHealthData = {

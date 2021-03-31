@@ -1,0 +1,24 @@
+.root {
+  max-width: 500px;
+  padding: 1em 0;
+  margin: 0 auto;
+}
+
+.label {
+  display: block;
+  cursor: pointer;
+}
+
+.input {
+  display: none;
+}
+
+.isDisabled {
+  & svg {
+    color: #bbb !important;
+    animation: none;
+    &:hover {
+      filter: none !important;
+    }
+  }
+}

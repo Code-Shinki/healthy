@@ -4,5 +4,5 @@ import { atom } from 'recoil'
 export const currentUserState = atom<undefined | null | firebase.User>({
   key: 'CurrentUser',
   default: undefined,
-  dangerouslyAllowMutability: true,
+  dangerouslyAllowMutability: true, // Firebaseのデータを持つので有効化
 })
