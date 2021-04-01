@@ -27,7 +27,7 @@ const DashboardCondition: React.FC = () => {
         <Grid container justify="space-around" className={classes.container}>
           {userDataset.health.slice(-length).map((data, index) => (
             <Grid key={index.toString()} item className={classes.item}>
-              <div className={classes.date}>{`${getFormattedDate(data.createdAt, 'dd')}日`}</div>
+              <div className={classes.date}>{`${getFormattedDate(data.createdAt, 'd')}日`}</div>
               <MoodIcons mood={data.mood} size="3.5em" />
               <div className={classes.temperature}>{`${data.temperature} ℃`}</div>
             </Grid>

@@ -1,5 +1,6 @@
 import { Button, Grid, Link, TextField, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import CustomizedSnackbar from 'components/atoms/custom-snackbar'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
@@ -10,13 +11,14 @@ const LoginForm: React.FC = () => {
   const classes = useStyles()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isAlertOpen, setIsAlertOpen] = useState(false)
 
   const login = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    await auth.signInWithEmailAndPassword(email, password).catch((err) => {
-      alert(err.message)
-    })
-    router.push('/dashboard')
+    await auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => router.push('/dashboard'))
+      .catch(() => setIsAlertOpen(true))
   }
 
   const changeEmail = (event: ChangeEvent<HTMLInputElement>) => {
@@ -25,6 +27,10 @@ const LoginForm: React.FC = () => {
 
   const changePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value)
+  }
+
+  const alertClose = (open: boolean) => {
+    setIsAlertOpen(open)
   }
 
   return (
@@ -66,6 +72,9 @@ const LoginForm: React.FC = () => {
           <Link href="/signup">新規作成はこちら</Link>
         </NextLink>
       </Grid>
+      <CustomizedSnackbar type="error" open={isAlertOpen} setClose={alertClose}>
+        ログインに失敗しました。メールアドレスとパスワードをご確認ください。
+      </CustomizedSnackbar>
     </>
   )
 }

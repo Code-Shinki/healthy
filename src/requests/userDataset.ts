@@ -34,7 +34,6 @@ export const getUserDataset = async (uid: string, option: Option) => {
         })
     }
   } catch (err) {
-    alert(err.message)
     return undefined
   }
 }
@@ -43,7 +42,7 @@ export const postUserDataset = async (uid: string, data: UserDataset) => {
   try {
     await db.collection('users').doc(uid).set(data)
   } catch (err) {
-    alert(err.message)
+    throw new Error(err)
   }
 }
 
@@ -51,6 +50,6 @@ export const deleteUserDataset = async (uid: string) => {
   try {
     await db.collection('users').doc(uid).delete()
   } catch (err) {
-    alert(err.message)
+    throw new Error(err)
   }
 }

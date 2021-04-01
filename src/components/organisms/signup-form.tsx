@@ -1,5 +1,6 @@
 import { Button, ButtonGroup, Grid, Link, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import CustomizedSnackbar from 'components/atoms/custom-snackbar'
 import SpinnerModal from 'components/molecules/spinner-modal'
 import userDemoDataset from 'datasets/userDemoDataset.json'
 import userInitDataset from 'datasets/userInitDataset.json'
@@ -18,6 +19,7 @@ const SignupForm: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isCreating, setIsCreating] = useState(false)
+  const [isAlertOpen, setIsAlertOpen] = useState(false)
   let userId: undefined | string
 
   const createEmailUser = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -27,9 +29,9 @@ const SignupForm: React.FC = () => {
     await auth
       .createUserWithEmailAndPassword(email, password)
       .then((credential) => (userId = credential.user?.uid))
-      .catch((err) => {
+      .catch(() => {
         setIsCreating(false)
-        alert(err.message)
+        setIsAlertOpen(true)
       })
 
     if (userId) {
@@ -45,9 +47,9 @@ const SignupForm: React.FC = () => {
     await auth
       .signInAnonymously()
       .then((credential) => (userId = credential.user?.uid))
-      .catch((err) => {
+      .catch(() => {
         setIsCreating(false)
-        alert(err.message)
+        setIsAlertOpen(true)
       })
 
     if (userId) {
@@ -65,7 +67,9 @@ const SignupForm: React.FC = () => {
   }
 
   const createDatabase = async (dataset: UserDataset) => {
-    await postUserDataset(userId as string, { ...dataset, createdAt: new Date().toString() })
+    await postUserDataset(userId as string, { ...dataset, createdAt: new Date().toString() }).catch(() =>
+      router.push('/404')
+    )
   }
 
   const changeName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -76,6 +80,9 @@ const SignupForm: React.FC = () => {
   }
   const changePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value)
+  }
+  const alertClose = (open: boolean) => {
+    setIsAlertOpen(open)
   }
 
   return (
@@ -137,6 +144,9 @@ const SignupForm: React.FC = () => {
         </Grid>
       </Grid>
       {isCreating && <SpinnerModal />}
+      <CustomizedSnackbar type="error" open={isAlertOpen} setClose={alertClose}>
+        登録に失敗しました。 メールアドレスとパスワードをご確認ください。
+      </CustomizedSnackbar>
     </>
   )
 }

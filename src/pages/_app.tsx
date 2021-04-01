@@ -38,8 +38,7 @@ const AppInit = () => {
       if (currentUser && !userDataset) {
         const snapshot = await getUserDataset(currentUser.uid, { cache: true })
         if (!snapshot || !Object.keys(snapshot).length) {
-          await auth.signOut().catch((err) => alert(err.message))
-          router.push('404')
+          await auth.signOut().catch(() => router.push('/404'))
           return
         }
         setUserDataset(snapshot)
@@ -48,7 +47,7 @@ const AppInit = () => {
   }, [currentUser])
 
   useEffect(() => {
-    const hidePage = ['/', '/404']
+    const hidePage = ['/', '/404', '/user']
     let isAvailableCheck = true
 
     for (let i = 0; i < hidePage.length; i++) {

@@ -43,7 +43,7 @@ const CheckupForm: React.FC = () => {
         health: [...userDataset.health, todaysHealthData as UserHealthData],
       }
 
-      await postUserDataset(currentUser?.uid as string, newData)
+      await postUserDataset(currentUser?.uid as string, newData).catch(() => router.push('/404'))
       setUserDataset(newData)
 
       router.push('/dashboard')

@@ -1,6 +1,8 @@
 import { Button, FormControlLabel, Radio, RadioGroup, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import CustomizedSnackbar from 'components/atoms/custom-snackbar'
 import UserLabel from 'components/atoms/user-label'
+import { useRouter } from 'next/router'
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { getUserDataset, postUserDataset } from 'requests/userDataset'
@@ -10,6 +12,7 @@ import { UserDataset } from 'types/userDataset'
 import styles from './user-form.module.scss'
 
 const UserForm: React.FC = () => {
+  const router = useRouter()
   const classes = useStyles()
   const currentUser = useRecoilValue(currentUserState)
   const [userDataset, setUserDataset] = useRecoilState(userDatasetState)
@@ -18,6 +21,7 @@ const UserForm: React.FC = () => {
   const [height, setHeight] = useState<null | number>(null)
   const [weight, setWeight] = useState<null | number>(null)
   const [doctor, setDoctor] = useState<null | string>(null)
+  const [isAlertOpen, setIsAlertOpen] = useState(false)
 
   useEffect(() => {
     if (!userDataset) return
@@ -43,9 +47,11 @@ const UserForm: React.FC = () => {
 
     await postUserDataset(currentUser.uid, { ...(userDataset as UserDataset), ...updateValue })
     const newDataset = await getUserDataset(currentUser.uid, { cache: false })
+
+    !newDataset && router.push('/404')
     setUserDataset(newDataset)
 
-    alert('Success Update.')
+    setIsAlertOpen(true)
   }
 
   const changeName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -63,75 +69,91 @@ const UserForm: React.FC = () => {
   const changeDoctor = (event: ChangeEvent<HTMLInputElement>) => {
     setDoctor(event.target.value)
   }
+  const alertClose = (open: boolean) => {
+    setIsAlertOpen(open)
+  }
 
   if (!currentUser || !userDataset) return null
 
   return (
-    <form className={styles.form} noValidate onSubmit={updateUser}>
-      <div className={styles.wrapper}>
-        <UserLabel>ユーザー名</UserLabel>
-        <TextField
-          id="name"
-          name="name"
-          value={name ? name : ''}
-          autoComplete="name"
-          required
-          margin="dense"
-          onChange={changeName}
-          className={classes.input}
-        />
-      </div>
-      <div className={styles.wrapper}>
-        <UserLabel>性別</UserLabel>
-        <RadioGroup aria-label="gender" name="gender" row onChange={changeGender} className={classes.radio}>
-          <FormControlLabel value="男性" control={<Radio color="primary" checked={gender === '男性'} />} label="男性" />
-          <FormControlLabel value="女性" control={<Radio color="primary" checked={gender === '女性'} />} label="女性" />
-        </RadioGroup>
-      </div>
-      <div className={styles.wrapper}>
-        <UserLabel>身長</UserLabel>
-        <TextField
-          id="height"
-          name="height"
-          type="number"
-          inputProps={{ step: '0.1' }}
-          value={height ? height : ''}
-          required
-          margin="dense"
-          onChange={changeHeight}
-          className={classes.input}
-        />
-      </div>
-      <div className={styles.wrapper}>
-        <UserLabel>体重</UserLabel>
-        <TextField
-          id="weight"
-          name="weight"
-          type="number"
-          inputProps={{ step: '0.1' }}
-          value={weight ? weight : ''}
-          required
-          margin="dense"
-          onChange={changeWeight}
-          className={classes.input}
-        />
-      </div>
-      <div className={styles.wrapper}>
-        <UserLabel>かかりつけ医</UserLabel>
-        <TextField
-          id="doctor"
-          name="doctor"
-          value={doctor ? doctor : ''}
-          required
-          margin="dense"
-          onChange={changeDoctor}
-          className={classes.input}
-        />
-      </div>
-      <Button type="submit" variant="outlined" color="primary" size="large" className={classes.submit}>
-        更新する
-      </Button>
-    </form>
+    <>
+      <form className={styles.form} noValidate onSubmit={updateUser}>
+        <div className={styles.wrapper}>
+          <UserLabel>ユーザー名</UserLabel>
+          <TextField
+            id="name"
+            name="name"
+            value={name ? name : ''}
+            autoComplete="name"
+            required
+            margin="dense"
+            onChange={changeName}
+            className={classes.input}
+          />
+        </div>
+        <div className={styles.wrapper}>
+          <UserLabel>性別</UserLabel>
+          <RadioGroup aria-label="gender" name="gender" row onChange={changeGender} className={classes.radio}>
+            <FormControlLabel
+              value="男性"
+              control={<Radio color="primary" checked={gender === '男性'} />}
+              label="男性"
+            />
+            <FormControlLabel
+              value="女性"
+              control={<Radio color="primary" checked={gender === '女性'} />}
+              label="女性"
+            />
+          </RadioGroup>
+        </div>
+        <div className={styles.wrapper}>
+          <UserLabel>身長</UserLabel>
+          <TextField
+            id="height"
+            name="height"
+            type="number"
+            inputProps={{ step: '0.1' }}
+            value={height ? height : ''}
+            required
+            margin="dense"
+            onChange={changeHeight}
+            className={classes.input}
+          />
+        </div>
+        <div className={styles.wrapper}>
+          <UserLabel>体重</UserLabel>
+          <TextField
+            id="weight"
+            name="weight"
+            type="number"
+            inputProps={{ step: '0.1' }}
+            value={weight ? weight : ''}
+            required
+            margin="dense"
+            onChange={changeWeight}
+            className={classes.input}
+          />
+        </div>
+        <div className={styles.wrapper}>
+          <UserLabel>かかりつけ医</UserLabel>
+          <TextField
+            id="doctor"
+            name="doctor"
+            value={doctor ? doctor : ''}
+            required
+            margin="dense"
+            onChange={changeDoctor}
+            className={classes.input}
+          />
+        </div>
+        <Button type="submit" variant="outlined" color="primary" size="large" className={classes.submit}>
+          更新する
+        </Button>
+      </form>
+      <CustomizedSnackbar type="success" open={isAlertOpen} setClose={alertClose}>
+        ユーザー情報を更新しました！
+      </CustomizedSnackbar>
+    </>
   )
 }
 
