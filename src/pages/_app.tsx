@@ -47,11 +47,11 @@ const AppInit = () => {
   }, [currentUser])
 
   useEffect(() => {
-    const hidePage = ['/', '/404', '/user']
-    let isAvailableCheck = true
+    const askPage = ['/dashboard']
+    let isAvailableCheck = false
 
-    for (let i = 0; i < hidePage.length; i++) {
-      if (router.pathname === hidePage[i]) isAvailableCheck = false
+    for (let i = 0; i < askPage.length; i++) {
+      if (router.pathname === askPage[i]) isAvailableCheck = true
     }
 
     // Go to Checkup

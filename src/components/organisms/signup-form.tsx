@@ -95,7 +95,6 @@ const SignupForm: React.FC = () => {
               name="name"
               label="ユーザー名"
               autoComplete="name"
-              required
               variant="outlined"
               fullWidth
               onChange={changeName}

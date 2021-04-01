@@ -1,4 +1,5 @@
 import Spinner from 'components/atoms/spinner'
+import HealthdataLayout from 'layouts/healthdata-layout'
 import { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -19,9 +20,9 @@ const Healthdata: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Log</title>
+        <title>Healthdata</title>
       </Head>
-      {currentUser && userDataset ? <h1>Log</h1> : <Spinner />}
+      {currentUser && userDataset ? <HealthdataLayout /> : <Spinner />}
     </>
   )
 }
