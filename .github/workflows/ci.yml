@@ -33,5 +33,5 @@ jobs:
           yarn install
           yarn lint
           yarn run test:app -u
-          yarn test:firebase
+          yarn test:emulator
           yarn build

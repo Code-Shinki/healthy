@@ -12,7 +12,7 @@
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src && stylelint src/**/*.scss",
     "test:app": "jest --config=jest.config.js",
     "test:utils": "jest --config=jest.config.utils.js",
-    "firebase:emulators": "firebase emulators:start --only firestore"
+    "test:emulator": "firebase emulators:start --only firestore"
   },
   "husky": {
     "hooks": {
