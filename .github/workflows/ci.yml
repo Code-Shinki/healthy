@@ -20,9 +20,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: docker-compose up
-        run: docker-compose up -d
-
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -33,5 +30,4 @@ jobs:
           yarn install
           yarn lint
           yarn run test:app -u
-          yarn test:utils
           yarn build
