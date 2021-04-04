@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TOP PAGE snapshot 1`] = `
+<DocumentFragment>
+  <ul>
+    <li>
+      <a
+        href="/login"
+      >
+        /login
+      </a>
+    </li>
+    <li>
+      <a
+        href="/signup"
+      >
+        /signup
+      </a>
+    </li>
+    <li>
+      <a
+        href="/dashboard"
+      >
+        /dashboard
+      </a>
+    </li>
+    <li>
+      <a
+        href="/checkup"
+      >
+        /checkup
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;

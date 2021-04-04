@@ -9,8 +9,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx src && stylelint src/**/*.scss"
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src && stylelint src/**/*.scss",
+    "test:app": "jest --config=jest.config.js",
+    "test:utils": "jest --config=jest.config.utils.js",
+    "firebase:emulators": "firebase emulators:start --only firestore"
   },
   "husky": {
     "hooks": {
@@ -40,6 +42,7 @@
     "recoil": "^0.1.3"
   },
   "devDependencies": {
+    "@firebase/testing": "^0.20.11",
     "@material-ui/core": "^4.11.3",
     "@material-ui/data-grid": "^4.0.0-alpha.23",
     "@material-ui/icons": "^4.11.2",
@@ -64,6 +67,7 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^5.1.3",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^26.6.3",
     "lint-staged": "^10.5.4",
     "next-secure-headers": "^2.2.0",

@@ -20,19 +20,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: docker-compose up
+        run: docker-compose up -d
+
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: '14.x'
 
-      - name: package install
-        run: yarn install
-
-      - name: next build
-        run: yarn build
-
-      - name: eslint stylelint
-        run: yarn lint
-
-      - name: run test
-        run: yarn test
+      - name: yarn install, build, and test
+        run: |
+          yarn install
+          yarn lint
+          yarn test:app
+          yarn test:firebase
+          yarn build

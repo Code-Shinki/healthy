@@ -1,0 +1,298 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`体調記録ページ (/checkup) スナップショット 1`] = `
+<DocumentFragment>
+  <div
+    class="makeStyles-container-1"
+  >
+    <div
+      class="makeStyles-root-2"
+    >
+      <h1
+        class="title"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root icon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"
+          />
+        </svg>
+        今日の体調
+      </h1>
+      <section
+        aria-label="form-wrapper"
+        class="container"
+      >
+        <div
+          class="makeStyles-question-3"
+        >
+          調子はいかがですか？
+        </div>
+        <div
+          class="MuiGrid-root root MuiGrid-container MuiGrid-justify-xs-space-between"
+        >
+          <div>
+            <label
+              class="label isDisabled"
+              for="good"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root good"
+                focusable="false"
+                style="font-size: 5.5em;"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"
+                />
+              </svg>
+            </label>
+            <input
+              class="input"
+              id="good"
+              name="mood"
+              type="radio"
+            />
+          </div>
+          <div>
+            <label
+              class="label isDisabled"
+              for="fine"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root fine"
+                focusable="false"
+                style="font-size: 5.5em;"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  cx="15.5"
+                  cy="9.5"
+                  r="1.5"
+                />
+                <circle
+                  cx="8.5"
+                  cy="9.5"
+                  r="1.5"
+                />
+                <path
+                  d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-3.5c.73 0 1.39.19 1.97.53.12-.14.86-.98 1.01-1.14-.85-.56-1.87-.89-2.98-.89-1.11 0-2.13.33-2.99.88.97 1.09.01.02 1.01 1.14.59-.33 1.25-.52 1.98-.52z"
+                />
+              </svg>
+            </label>
+            <input
+              class="input"
+              id="fine"
+              name="mood"
+              type="radio"
+            />
+          </div>
+          <div>
+            <label
+              class="label isDisabled"
+              for="bad"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root bad"
+                focusable="false"
+                style="font-size: 5.5em;"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 13.5c-2.33 0-4.31 1.46-5.11 3.5h10.22c-.8-2.04-2.78-3.5-5.11-3.5zM7.82 12l1.06-1.06L9.94 12 11 10.94 9.94 9.88 11 8.82 9.94 7.76 8.88 8.82 7.82 7.76 6.76 8.82l1.06 1.06-1.06 1.06zm4.17-10C6.47 2 2 6.47 2 12s4.47 10 9.99 10S22 17.53 22 12 17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4.18-12.24l-1.06 1.06-1.06-1.06L13 8.82l1.06 1.06L13 10.94 14.06 12l1.06-1.06L16.18 12l1.06-1.06-1.06-1.06 1.06-1.06z"
+                />
+              </svg>
+            </label>
+            <input
+              class="input"
+              id="bad"
+              name="mood"
+              type="radio"
+            />
+          </div>
+        </div>
+        <div
+          class="MuiButtonGroup-root makeStyles-wrapper-4 MuiButtonGroup-fullWidth"
+          role="group"
+        >
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedText MuiButtonGroup-groupedTextHorizontal MuiButtonGroup-groupedTextPrimary MuiButton-textPrimary MuiButton-textSizeLarge MuiButton-sizeLarge Mui-disabled MuiButton-fullWidth Mui-disabled"
+            disabled=""
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              戻る
+            </span>
+          </button>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedText MuiButtonGroup-groupedTextHorizontal MuiButtonGroup-groupedTextPrimary MuiButton-textPrimary MuiButton-textSizeLarge MuiButton-sizeLarge Mui-disabled MuiButton-fullWidth Mui-disabled"
+            disabled=""
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              次へ
+            </span>
+          </button>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div
+    class="MuiBottomNavigation-root root"
+  >
+    <button
+      class="MuiButtonBase-root MuiBottomNavigationAction-root item"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiBottomNavigationAction-wrapper"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
+          />
+        </svg>
+        <span
+          class="MuiBottomNavigationAction-label"
+        >
+          ホーム
+        </span>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root MuiBottomNavigationAction-root item"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiBottomNavigationAction-wrapper"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
+          />
+        </svg>
+        <span
+          class="MuiBottomNavigationAction-label"
+        >
+          ヘルスデータ
+        </span>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root MuiBottomNavigationAction-root item"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiBottomNavigationAction-wrapper"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M10 20h4V4h-4v16zm-6 0h4v-8H4v8zM16 9v11h4V9h-4z"
+          />
+        </svg>
+        <span
+          class="MuiBottomNavigationAction-label"
+        >
+          体温グラフ
+        </span>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root MuiBottomNavigationAction-root item"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiBottomNavigationAction-wrapper"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+          />
+        </svg>
+        <span
+          class="MuiBottomNavigationAction-label"
+        >
+          ユーザー
+        </span>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root MuiBottomNavigationAction-root item"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiBottomNavigationAction-wrapper"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+          />
+        </svg>
+        <span
+          class="MuiBottomNavigationAction-label"
+        >
+          ログアウト
+        </span>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+</DocumentFragment>
+`;

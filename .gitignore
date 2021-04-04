@@ -37,3 +37,10 @@ yarn-error.log*
 /public/sw.js
 /public/workbox-*.js
 /public/*.js.map
+
+# Firebase
+database-debug.log
+firebase-debug.log
+firestore-debug.log
+pubsub-debug.log
+ui-debug.log

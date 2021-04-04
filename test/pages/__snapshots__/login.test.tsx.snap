@@ -1,0 +1,173 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ログインページ (/login) スナップショット 1`] = `
+<DocumentFragment>
+  <main
+    class="MuiGrid-root makeStyles-root-1 MuiGrid-container"
+  >
+    <div
+      class="MuiPaper-root MuiGrid-root makeStyles-paper-2 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-8 MuiGrid-grid-md-6 MuiGrid-grid-lg-5 MuiPaper-elevation6"
+    >
+      <div
+        class="makeStyles-container-3"
+      >
+        <div
+          class="MuiAvatar-root MuiAvatar-circle makeStyles-avatar-4 MuiAvatar-colorDefault"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root"
+            focusable="false"
+            style="font-size: 2.5em;"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6h1.9c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm0 12H6V10h12v10z"
+            />
+          </svg>
+        </div>
+        <h1>
+          ログイン
+        </h1>
+        <p>
+          ※ 現在ログアウト時にデータを削除しているため利用できません。
+        </p>
+        <form
+          class="makeStyles-form-6"
+          novalidate=""
+        >
+          <div
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+            >
+              <div
+                aria-label="email"
+                class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+              >
+                <label
+                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined Mui-required Mui-required"
+                  data-shrink="false"
+                  for="email"
+                  id="email-label"
+                >
+                  メールアドレス
+                  <span
+                    aria-hidden="true"
+                    class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+                  >
+                     *
+                  </span>
+                </label>
+                <div
+                  class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl"
+                >
+                  <input
+                    aria-invalid="false"
+                    autocomplete="email"
+                    class="MuiInputBase-input MuiOutlinedInput-input"
+                    id="email"
+                    name="email"
+                    required=""
+                    type="email"
+                    value=""
+                  />
+                  <fieldset
+                    aria-hidden="true"
+                    class="PrivateNotchedOutline-root-8 MuiOutlinedInput-notchedOutline"
+                  >
+                    <legend
+                      class="PrivateNotchedOutline-legendLabelled-10"
+                    >
+                      <span>
+                        メールアドレス *
+                      </span>
+                    </legend>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+            <div
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+            >
+              <div
+                aria-label="password"
+                class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+              >
+                <label
+                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined Mui-required Mui-required"
+                  data-shrink="false"
+                  for="password"
+                  id="password-label"
+                >
+                  パスワード
+                  <span
+                    aria-hidden="true"
+                    class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+                  >
+                     *
+                  </span>
+                </label>
+                <div
+                  class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl"
+                >
+                  <input
+                    aria-invalid="false"
+                    autocomplete="current-password"
+                    class="MuiInputBase-input MuiOutlinedInput-input"
+                    id="password"
+                    name="password"
+                    required=""
+                    type="password"
+                    value=""
+                  />
+                  <fieldset
+                    aria-hidden="true"
+                    class="PrivateNotchedOutline-root-8 MuiOutlinedInput-notchedOutline"
+                  >
+                    <legend
+                      class="PrivateNotchedOutline-legendLabelled-10"
+                    >
+                      <span>
+                        パスワード *
+                      </span>
+                    </legend>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-submit-7 MuiButton-outlinedPrimary MuiButton-outlinedSizeLarge MuiButton-sizeLarge MuiButton-fullWidth"
+            tabindex="0"
+            type="submit"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              ログイン
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </form>
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-flex-end"
+        >
+          <a
+            class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+            href="/signup"
+          >
+            新規作成はこちら
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiGrid-root makeStyles-image-5 MuiGrid-item MuiGrid-grid-sm-4 MuiGrid-grid-md-6 MuiGrid-grid-lg-7"
+    />
+  </main>
+</DocumentFragment>
+`;
