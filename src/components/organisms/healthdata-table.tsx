@@ -18,7 +18,8 @@ const HealthdataTable: React.FC = () => {
   const matches = useMediaQuery(theme.breakpoints.up('xl'))
 
   const columns: GridColumns = [
-    { field: 'id', headerName: '日時', width: !matches ? 120 : undefined, flex: matches ? 2 : undefined },
+    { field: 'id', headerName: 'ID', hide: true },
+    { field: 'createdAt', headerName: '日時', width: !matches ? 120 : undefined, flex: matches ? 2 : undefined },
     {
       field: 'mood',
       headerName: '体調',
@@ -37,7 +38,7 @@ const HealthdataTable: React.FC = () => {
     },
     {
       field: 'symptom',
-      headerName: '気になる症状',
+      headerName: '症状',
       width: !matches ? 400 : undefined,
       flex: matches ? 6 : undefined,
       sortable: false,
@@ -57,11 +58,14 @@ const HealthdataTable: React.FC = () => {
   useEffect(() => {
     if (!userDataset) return
 
+    let id = 0
+
     setRows(
       userDataset.health
         .map((item: UserHealthData) => {
           return {
-            id: getFormattedDate(item.createdAt, 'yyyy-MM-dd'),
+            id: id++,
+            createdAt: getFormattedDate(item.createdAt, 'yyyy-MM-dd'),
             mood: item.mood,
             temperature: item.temperature,
             symptom: item.symptom,

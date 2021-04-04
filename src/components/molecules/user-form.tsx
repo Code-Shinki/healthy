@@ -2,6 +2,7 @@ import { Button, FormControlLabel, Radio, RadioGroup, TextField } from '@materia
 import { makeStyles } from '@material-ui/core/styles'
 import CustomizedSnackbar from 'components/atoms/custom-snackbar'
 import UserLabel from 'components/atoms/user-label'
+import { validateDoctor, validateHeight, validateName, validateWeight } from 'libs/validate'
 import { useRouter } from 'next/router'
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
@@ -22,6 +23,8 @@ const UserForm: React.FC = () => {
   const [weight, setWeight] = useState<null | number>(null)
   const [doctor, setDoctor] = useState<null | string>(null)
   const [isAlertOpen, setIsAlertOpen] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
+  const [alertType, setAlertType] = useState<'warning' | 'success'>('warning')
 
   useEffect(() => {
     if (!userDataset) return
@@ -37,6 +40,12 @@ const UserForm: React.FC = () => {
     event.preventDefault()
     if (!currentUser) return
 
+    if (!validate()) {
+      setAlertType('warning')
+      setIsAlertOpen(true)
+      return
+    }
+
     const updateValue = {
       name: name,
       gender: gender,
@@ -51,7 +60,30 @@ const UserForm: React.FC = () => {
     !newDataset && router.push('/404')
     setUserDataset(newDataset)
 
+    setAlertMessage('ユーザー情報を更新しました！')
+    setAlertType('success')
     setIsAlertOpen(true)
+  }
+
+  const validate = () => {
+    if (!validateName(name)) {
+      setAlertMessage('ユーザー名は30文字以下にしてください。')
+      return false
+    }
+    if (!validateHeight(height)) {
+      setAlertMessage('身長は50～300(cm)の数字にしてください。')
+      return false
+    }
+    if (!validateWeight(weight)) {
+      setAlertMessage('体重は10～300(kg)の数字にしてください。')
+      return false
+    }
+    if (!validateDoctor(doctor)) {
+      setAlertMessage('かかりつけ医は30文字以下にしてください。')
+      return false
+    }
+
+    return true
   }
 
   const changeName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -83,6 +115,7 @@ const UserForm: React.FC = () => {
           <TextField
             id="name"
             name="name"
+            inputProps={{ 'aria-label': 'name' }}
             value={name ? name : ''}
             autoComplete="name"
             required
@@ -112,7 +145,7 @@ const UserForm: React.FC = () => {
             id="height"
             name="height"
             type="number"
-            inputProps={{ step: '0.1' }}
+            inputProps={{ 'aria-label': 'height', step: '0.1' }}
             value={height ? height : ''}
             required
             margin="dense"
@@ -126,7 +159,7 @@ const UserForm: React.FC = () => {
             id="weight"
             name="weight"
             type="number"
-            inputProps={{ step: '0.1' }}
+            inputProps={{ 'aria-label': 'weight', step: '0.1' }}
             value={weight ? weight : ''}
             required
             margin="dense"
@@ -139,6 +172,7 @@ const UserForm: React.FC = () => {
           <TextField
             id="doctor"
             name="doctor"
+            inputProps={{ 'aria-label': 'doctor' }}
             value={doctor ? doctor : ''}
             required
             margin="dense"
@@ -150,8 +184,8 @@ const UserForm: React.FC = () => {
           更新する
         </Button>
       </form>
-      <CustomizedSnackbar type="success" open={isAlertOpen} setClose={alertClose}>
-        ユーザー情報を更新しました！
+      <CustomizedSnackbar type={alertType} open={isAlertOpen} setClose={alertClose}>
+        {alertMessage}
       </CustomizedSnackbar>
     </>
   )

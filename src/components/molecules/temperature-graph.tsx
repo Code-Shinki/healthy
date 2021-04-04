@@ -273,14 +273,14 @@ const TemperatureGraph: React.FC<Props> = ({ length }) => {
   return (
     <>
       {length ? (
-        <div className={styles.miniGraph}>
+        <section aria-label="graph-wrapper" className={styles.miniGraph}>
           <Chart type="area" options={graphOption.options[0]} series={graphOption.series} height="300px" />
-        </div>
+        </section>
       ) : (
-        <div className={styles.fullGraph}>
+        <section aria-label="graph-wrapper" className={styles.fullGraph}>
           <Chart type="area" options={graphOption.options[1]} series={graphOption.series} height="70%" />
           <Chart type="bar" options={graphOption.options[2]} series={graphOption.series} height="30%" />
-        </div>
+        </section>
       )}
     </>
   )

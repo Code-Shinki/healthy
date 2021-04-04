@@ -17,7 +17,11 @@ const CheckupTemperature: React.FC = () => {
   let prevTemperature = 36.5
 
   useEffect(() => {
-    if (!userDataset || !userDataset.health.length) return
+    if (!userDataset || !userDataset.health.length) {
+      prevTemperature = -93487216
+      changeTips(prevTemperature)
+      return
+    }
 
     prevTemperature = userDataset.health.slice(-1)[0].temperature
 
@@ -36,7 +40,7 @@ const CheckupTemperature: React.FC = () => {
       temperature: temperature,
     })
 
-    prevTemperature = userDataset.health.slice(-1)[0].temperature
+    prevTemperature = userDataset.health.length ? userDataset.health.slice(-1)[0].temperature : -93487216
     changeTips(temperature)
   }, [temperature])
 
@@ -46,6 +50,11 @@ const CheckupTemperature: React.FC = () => {
   }
 
   const changeTips = (value: number) => {
+    if (prevTemperature === -93487216) {
+      setTips(`初めての記録ですね！`)
+      return
+    }
+
     const diff = Math.round((value - prevTemperature) * 10) / 10
     const absDiff = Math.abs(diff)
 

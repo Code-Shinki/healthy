@@ -15,9 +15,9 @@ const CheckupLayout: React.FC = () => {
           <ChatIcon className={styles.icon} />
           今日の体調
         </h1>
-        <div className={styles.container}>
+        <section aria-label="form-wrapper" className={styles.container}>
           <CheckupForm />
-        </div>
+        </section>
       </div>
     </>
   )

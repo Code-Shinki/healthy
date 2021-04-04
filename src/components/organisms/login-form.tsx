@@ -1,6 +1,7 @@
 import { Button, Grid, Link, TextField, Theme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import CustomizedSnackbar from 'components/atoms/custom-snackbar'
+import { validateEmail } from 'libs/validate'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
@@ -12,23 +13,41 @@ const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isAlertOpen, setIsAlertOpen] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
 
   const login = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+
+    if (!validate()) {
+      setIsAlertOpen(true)
+      return
+    }
+
     await auth
       .signInWithEmailAndPassword(email, password)
       .then(() => router.push('/dashboard'))
-      .catch(() => setIsAlertOpen(true))
+      .catch(() => {
+        setAlertMessage('ログイン失敗 : メールアドレスとパスワードをご確認ください')
+        setIsAlertOpen(true)
+        return
+      })
+  }
+
+  const validate = () => {
+    if (!validateEmail(email)) {
+      setAlertMessage('有効なメールアドレスを入力してください。')
+      return false
+    }
+
+    return true
   }
 
   const changeEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value)
   }
-
   const changePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value)
   }
-
   const alertClose = (open: boolean) => {
     setIsAlertOpen(open)
   }
@@ -39,8 +58,10 @@ const LoginForm: React.FC = () => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
+              type="email"
               id="email"
               name="email"
+              aria-label="email"
               label="メールアドレス"
               autoComplete="email"
               required
@@ -54,6 +75,7 @@ const LoginForm: React.FC = () => {
               type="password"
               id="password"
               name="password"
+              aria-label="password"
               label="パスワード"
               autoComplete="current-password"
               required
@@ -72,8 +94,8 @@ const LoginForm: React.FC = () => {
           <Link href="/signup">新規作成はこちら</Link>
         </NextLink>
       </Grid>
-      <CustomizedSnackbar type="error" open={isAlertOpen} setClose={alertClose}>
-        ログインに失敗しました。メールアドレスとパスワードをご確認ください。
+      <CustomizedSnackbar type="warning" open={isAlertOpen} setClose={alertClose}>
+        {alertMessage}
       </CustomizedSnackbar>
     </>
   )

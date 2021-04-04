@@ -52,7 +52,7 @@ const PcMenu: React.FC<Props> = ({ toggleIsModalOpen }) => {
               <ListItemIcon className={styles.iconwrapper}>
                 <AssignmentIcon className={styles.icon} />
               </ListItemIcon>
-              <ListItemText primary="体調記録" />
+              <ListItemText primary="ヘルスデータ" />
             </ListItem>
           </NextLink>
           <NextLink href="/temperature" passHref>

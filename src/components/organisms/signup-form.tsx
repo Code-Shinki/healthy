@@ -5,6 +5,7 @@ import SpinnerModal from 'components/molecules/spinner-modal'
 import userDemoDataset from 'datasets/userDemoDataset.json'
 import userInitDataset from 'datasets/userInitDataset.json'
 import { getDemoDate } from 'libs/date'
+import { validateEmail, validateName, validatePassword } from 'libs/validate'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import React, { ChangeEvent, useState } from 'react'
@@ -20,18 +21,27 @@ const SignupForm: React.FC = () => {
   const [password, setPassword] = useState('')
   const [isCreating, setIsCreating] = useState(false)
   const [isAlertOpen, setIsAlertOpen] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
   let userId: undefined | string
 
   const createEmailUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsCreating(true)
 
+    if (!validate()) {
+      setIsCreating(false)
+      setIsAlertOpen(true)
+      return
+    }
+
     await auth
       .createUserWithEmailAndPassword(email, password)
       .then((credential) => (userId = credential.user?.uid))
-      .catch(() => {
+      .catch((err) => {
         setIsCreating(false)
+        setAlertMessage(`サーバーエラー : ${err}`)
         setIsAlertOpen(true)
+        return
       })
 
     if (userId) {
@@ -72,6 +82,23 @@ const SignupForm: React.FC = () => {
     )
   }
 
+  const validate = () => {
+    if (!validateName(name)) {
+      setAlertMessage('ユーザー名を30文字以下にしてください。')
+      return false
+    }
+    if (!validateEmail(email)) {
+      setAlertMessage('有効なメールアドレスを入力してください。')
+      return false
+    }
+    if (!validatePassword(password)) {
+      setAlertMessage('パスワードは大文字・小文字・数字を含む8文字以上の英数字にしてください。')
+      return false
+    }
+
+    return true
+  }
+
   const changeName = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value)
   }
@@ -93,6 +120,7 @@ const SignupForm: React.FC = () => {
             <TextField
               id="name"
               name="name"
+              aria-label="name"
               label="ユーザー名"
               autoComplete="name"
               variant="outlined"
@@ -102,8 +130,10 @@ const SignupForm: React.FC = () => {
           </Grid>
           <Grid item xs={12}>
             <TextField
+              type="email"
               id="email"
               name="email"
+              aria-label="email"
               label="メールアドレス"
               autoComplete="email"
               required
@@ -117,6 +147,7 @@ const SignupForm: React.FC = () => {
               type="password"
               id="password"
               name="password"
+              aria-label="password"
               label="パスワード"
               autoComplete="current-password"
               required
@@ -143,8 +174,8 @@ const SignupForm: React.FC = () => {
         </Grid>
       </Grid>
       {isCreating && <SpinnerModal />}
-      <CustomizedSnackbar type="error" open={isAlertOpen} setClose={alertClose}>
-        登録に失敗しました。 メールアドレスとパスワードをご確認ください。
+      <CustomizedSnackbar type="warning" open={isAlertOpen} setClose={alertClose}>
+        {alertMessage}
       </CustomizedSnackbar>
     </>
   )

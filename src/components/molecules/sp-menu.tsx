@@ -33,7 +33,7 @@ const SpMenu: React.FC<Props> = ({ toggleIsModalOpen }) => {
         className={styles.item}
       />
       <BottomNavigationAction
-        label="体調記録"
+        label="ヘルスデータ"
         value="/healthdata"
         icon={<AssignmentIcon fontSize="large" />}
         className={styles.item}
