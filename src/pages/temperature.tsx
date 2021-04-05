@@ -7,6 +7,7 @@ import React, { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { currentUserState } from 'states/currentUser'
 import { userDatasetState } from 'states/userDataset'
+import { SITE_DESCRIPTION, SITE_DOMAIN, SITE_TITLE } from 'utils/env'
 
 const Temperature: NextPage = () => {
   const router = useRouter()
@@ -20,7 +21,14 @@ const Temperature: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Temperature</title>
+        <link rel="canonical" href={`${SITE_DOMAIN}/temperature`} />
+        <title>{`体温グラフ - ${SITE_TITLE}`}</title>
+        <meta name="description" content={SITE_DESCRIPTION} />
+        <meta property="og:url" content={`${SITE_DOMAIN}/temperature`} />
+        <meta property="og:title" content={`体温グラフ - ${SITE_TITLE}`} />
+        <meta property="og:description" content={SITE_DESCRIPTION} />
+        <meta property="og:image" content={`${SITE_DOMAIN}/img/og-image.jpg`} />
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       {currentUser && userDataset ? <TemperatureLayout /> : <Spinner />}
     </>

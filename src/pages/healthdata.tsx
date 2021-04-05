@@ -7,6 +7,7 @@ import React, { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { currentUserState } from 'states/currentUser'
 import { userDatasetState } from 'states/userDataset'
+import { SITE_DESCRIPTION, SITE_DOMAIN, SITE_TITLE } from 'utils/env'
 
 const Healthdata: NextPage = () => {
   const router = useRouter()
@@ -20,7 +21,14 @@ const Healthdata: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Healthdata</title>
+        <link rel="canonical" href={`${SITE_DOMAIN}/healthdata`} />
+        <title>{`ヘルスデータ - ${SITE_TITLE}`}</title>
+        <meta name="description" content={SITE_DESCRIPTION} />
+        <meta property="og:url" content={`${SITE_DOMAIN}/healthdata`} />
+        <meta property="og:title" content={`ヘルスデータ - ${SITE_TITLE}`} />
+        <meta property="og:description" content={SITE_DESCRIPTION} />
+        <meta property="og:image" content={`${SITE_DOMAIN}/img/og-image.jpg`} />
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       {currentUser && userDataset ? <HealthdataLayout /> : <Spinner />}
     </>

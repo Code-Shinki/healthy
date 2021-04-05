@@ -3,12 +3,23 @@ import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
 import styles from 'styles/pages/404.module.scss'
+import { SITE_DOMAIN, SITE_TITLE } from 'utils/env'
 
 const Error: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Error</title>
+        <link rel="canonical" href={`${SITE_DOMAIN}/404`} />
+        <title>{`404 - ${SITE_TITLE}`}</title>
+        <meta name="description" content="アプリケーションにエラーが発生したためにリダイレクトされたページです。" />
+        <meta property="og:url" content={`${SITE_DOMAIN}/404`} />
+        <meta property="og:title" content={`404 - ${SITE_TITLE}`} />
+        <meta
+          property="og:description"
+          content="アプリケーションにエラーが発生したためにリダイレクトされたページです。"
+        />
+        <meta property="og:image" content={`${SITE_DOMAIN}/img/og-image.jpg`} />
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <div className={styles.root}>
         <div className={styles.container}>

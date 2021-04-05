@@ -82,9 +82,9 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content={SITE_TITLE} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#03a9f4" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="#03a9f4" />
         <meta name="apple-mobile-web-app-title" content={SITE_TITLE} />
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="192x192" href="/img/icon/android-chrome-192x192.png" />
@@ -94,6 +94,7 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
         <meta name="msapplication-config" content="/browserconfig.xml" />
         <meta name="msapplication-TileImage" content="/img/icon/site-tile-150x150.png" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <RecoilRoot>
         <MuiThemeProvider theme={theme}>

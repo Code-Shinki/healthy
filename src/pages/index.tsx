@@ -8,6 +8,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
 import styles from 'styles/pages/index.module.scss'
+import { SITE_DESCRIPTION, SITE_DOMAIN, SITE_SUBTITLE, SITE_TITLE } from 'utils/env'
 
 const Top: NextPage = () => {
   const classes = useStyles()
@@ -15,7 +16,14 @@ const Top: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Top</title>
+        <link rel="canonical" href={`${SITE_DOMAIN}/`} />
+        <title>{`${SITE_TITLE} - ${SITE_SUBTITLE}`}</title>
+        <meta name="description" content={SITE_DESCRIPTION} />
+        <meta property="og:url" content={`${SITE_DOMAIN}/`} />
+        <meta property="og:title" content={`${SITE_TITLE} - ${SITE_SUBTITLE}`} />
+        <meta property="og:description" content={SITE_DESCRIPTION} />
+        <meta property="og:image" content={`${SITE_DOMAIN}/img/og-image.jpg`} />
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <div className={styles.root}>
         <a
