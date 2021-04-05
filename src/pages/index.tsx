@@ -18,6 +18,14 @@ const Top: NextPage = () => {
         <title>Top</title>
       </Head>
       <div className={styles.root}>
+        <a
+          href="https://github.com/Code-Shinki/healthy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.github}
+        >
+          <img src="/img/github-logo.svg" alt="Githubリポジトリ" />
+        </a>
         <Grid container justify="center" className={styles.container}>
           <SvgLogo styles={styles.logo} />
           <h1 className={styles.title}>Healthy</h1>
