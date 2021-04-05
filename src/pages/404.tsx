@@ -2,7 +2,6 @@ import { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
-import styles from 'styles/pages/404.module.scss'
 
 const Error: NextPage = () => {
   return (
@@ -10,30 +9,10 @@ const Error: NextPage = () => {
       <Head>
         <title>Error</title>
       </Head>
-      <div className={styles.root}>
-        <div className={styles.container}>
-          <h1 className={styles.title}>404</h1>
-          <p className={styles.description}>大変申し訳ございません。</p>
-          <p className={styles.description}>サーバー側にてエラーが発生いたしました。</p>
-          <p className={styles.description}>
-            <Link href="/dashboard">
-              <a className={styles.link}>ダッシュボード</a>
-            </Link>
-            または
-            <Link href="/">
-              <a className={styles.link}>トップページ</a>
-            </Link>
-            からアプリケーションにお戻りください。
-          </p>
-          <p className={styles.description}>
-            お困りの際は
-            <a href="https://twitter.com/code_shinki" target="_blank" rel="noopener noreferrer" className={styles.link}>
-              開発者 (Twitter)
-            </a>
-            へご連絡ください。
-          </p>
-        </div>
-      </div>
+      <p>何らかのエラーが発生しました。</p>
+      <Link href="/">
+        <a>TOP</a>
+      </Link>
     </>
   )
 }
