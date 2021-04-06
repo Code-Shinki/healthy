@@ -1,23 +1,33 @@
 # Healthy
 
-Health management App.
+![og-image](https://user-images.githubusercontent.com/53631280/113713042-d351cb00-9721-11eb-8dba-40efcaf834d7.jpg)
+
+<p align="center">Health management App.</p>
 
 ## Notice
 
-### Local .env file
+This application is a portfolio.<br>
+It is not under actual operation.
+
+## Tech Stacks
+
+- Next.js on Vercel
+- Firebase authentication, Firestore
+- Typescript
+
+## DEV environment variables
 
 About configuration files that cannot be pushed to GitHub for security reasons.
 
-- `.env.local` & `.env.test.local`
+- `.env.local` + `.env.test.local`
 
 ```
-NEXT_PUBLIC_FIREBASE_API_KEY={ Firebase config }
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN={ Firebase config }
-NEXT_PUBLIC_FIREBASE_PROJECT_ID={ Firebase config }
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET={ Firebase config }
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID={ Firebase config }
-NEXT_PUBLIC_FIREBASE_APP_ID={ Firebase config }
-
+NEXT_PUBLIC_FIREBASE_API_KEY
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+NEXT_PUBLIC_FIREBASE_PROJECT_ID
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+NEXT_PUBLIC_FIREBASE_APP_ID
 ```
 
 ## Copyright and license
