@@ -1,0 +1,26 @@
+{
+  "init": {
+    "question": "調子はいかがですか？",
+    "button": { "prev": "", "next": "", "nextMessage": "次へ" }
+  },
+  "good": {
+    "question": "それでは本日は体温だけ記録しておきましょう！",
+    "button": { "prev": "init", "next": "complete", "nextMessage": "記録する" }
+  },
+  "fine": {
+    "question": "熱はありますか？",
+    "button": { "prev": "init", "next": "symptom", "nextMessage": "次へ" }
+  },
+  "bad": {
+    "question": "体温はどうでしょうか？",
+    "button": { "prev": "init", "next": "symptom", "nextMessage": "次へ" }
+  },
+  "symptom": {
+    "question": "どんな症状がありますか？",
+    "button": { "prev": "", "next": "complete", "nextMessage": "記録する" }
+  },
+  "complete": {
+    "question": "データを記録しています",
+    "button": { "prev": "", "next": "", "nextMessage": "" }
+  }
+}

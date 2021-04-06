@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`404ページ (/404) スナップショット 1`] = `
+<DocumentFragment>
+  <div
+    class="root"
+  >
+    <div
+      class="container"
+    >
+      <h1
+        class="title"
+      >
+        404
+      </h1>
+      <p
+        class="description"
+      >
+        大変申し訳ございません。
+      </p>
+      <p
+        class="description"
+      >
+        サーバー側にてエラーが発生いたしました。
+      </p>
+      <p
+        class="description"
+      >
+        <a
+          class="link"
+          href="/dashboard"
+        >
+          ダッシュボード
+        </a>
+        または
+        <a
+          class="link"
+          href="/"
+        >
+          トップページ
+        </a>
+        からアプリケーションにお戻りください。
+      </p>
+      <p
+        class="description"
+      >
+        お困りの際は
+        <a
+          class="link"
+          href="https://twitter.com/code_shinki"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          開発者 (Twitter)
+        </a>
+        へご連絡ください。
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;

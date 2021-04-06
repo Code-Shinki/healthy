@@ -1,0 +1,424 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ユーザー設定ページ (/user) スナップショット 1`] = `
+<DocumentFragment>
+  <div
+    class="makeStyles-container-1"
+  >
+    <div
+      class="makeStyles-root-2"
+    >
+      <h1
+        class="title"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root icon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+          />
+        </svg>
+        ユーザー設定
+      </h1>
+      <div
+        class="container"
+      >
+        <form
+          class="form"
+          novalidate=""
+        >
+          <div
+            class="wrapper"
+          >
+            <h3
+              class="label"
+            >
+              ユーザー名
+            </h3>
+            <div
+              class="MuiFormControl-root MuiTextField-root makeStyles-input-3 MuiFormControl-marginDense"
+            >
+              <div
+                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-marginDense MuiInput-marginDense"
+              >
+                <input
+                  aria-invalid="false"
+                  aria-label="name"
+                  autocomplete="name"
+                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputMarginDense MuiInput-inputMarginDense"
+                  id="name"
+                  name="name"
+                  required=""
+                  type="text"
+                  value="山本 太郎"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="wrapper"
+          >
+            <h3
+              class="label"
+            >
+              性別
+            </h3>
+            <div
+              aria-label="gender"
+              class="MuiFormGroup-root makeStyles-radio-4 MuiFormGroup-row"
+              role="radiogroup"
+            >
+              <label
+                class="MuiFormControlLabel-root"
+              >
+                <span
+                  aria-disabled="false"
+                  class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-checked-7 Mui-checked MuiIconButton-colorPrimary"
+                >
+                  <span
+                    class="MuiIconButton-label"
+                  >
+                    <input
+                      class="PrivateSwitchBase-input-9"
+                      name="gender"
+                      type="radio"
+                      value="男性"
+                    />
+                    <div
+                      class="PrivateRadioButtonIcon-root-10 PrivateRadioButtonIcon-checked-12"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                        />
+                      </svg>
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-11"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
+                        />
+                      </svg>
+                    </div>
+                  </span>
+                  <span
+                    class="MuiTouchRipple-root"
+                  />
+                </span>
+                <span
+                  class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                >
+                  男性
+                </span>
+              </label>
+              <label
+                class="MuiFormControlLabel-root"
+              >
+                <span
+                  aria-disabled="false"
+                  class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-6 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
+                >
+                  <span
+                    class="MuiIconButton-label"
+                  >
+                    <input
+                      class="PrivateSwitchBase-input-9"
+                      name="gender"
+                      type="radio"
+                      value="女性"
+                    />
+                    <div
+                      class="PrivateRadioButtonIcon-root-10"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                        />
+                      </svg>
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root PrivateRadioButtonIcon-layer-11"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
+                        />
+                      </svg>
+                    </div>
+                  </span>
+                  <span
+                    class="MuiTouchRipple-root"
+                  />
+                </span>
+                <span
+                  class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                >
+                  女性
+                </span>
+              </label>
+            </div>
+          </div>
+          <div
+            class="wrapper"
+          >
+            <h3
+              class="label"
+            >
+              身長
+            </h3>
+            <div
+              class="MuiFormControl-root MuiTextField-root makeStyles-input-3 MuiFormControl-marginDense"
+            >
+              <div
+                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-marginDense MuiInput-marginDense"
+              >
+                <input
+                  aria-invalid="false"
+                  aria-label="height"
+                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputMarginDense MuiInput-inputMarginDense"
+                  id="height"
+                  name="height"
+                  required=""
+                  step="0.1"
+                  type="number"
+                  value="172"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="wrapper"
+          >
+            <h3
+              class="label"
+            >
+              体重
+            </h3>
+            <div
+              class="MuiFormControl-root MuiTextField-root makeStyles-input-3 MuiFormControl-marginDense"
+            >
+              <div
+                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-marginDense MuiInput-marginDense"
+              >
+                <input
+                  aria-invalid="false"
+                  aria-label="weight"
+                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputMarginDense MuiInput-inputMarginDense"
+                  id="weight"
+                  name="weight"
+                  required=""
+                  step="0.1"
+                  type="number"
+                  value="65.4"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="wrapper"
+          >
+            <h3
+              class="label"
+            >
+              かかりつけ医
+            </h3>
+            <div
+              class="MuiFormControl-root MuiTextField-root makeStyles-input-3 MuiFormControl-marginDense"
+            >
+              <div
+                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-marginDense MuiInput-marginDense"
+              >
+                <input
+                  aria-invalid="false"
+                  aria-label="doctor"
+                  class="MuiInputBase-input MuiInput-input MuiInputBase-inputMarginDense MuiInput-inputMarginDense"
+                  id="doctor"
+                  name="doctor"
+                  required=""
+                  type="text"
+                  value="樫山市立中央病院"
+                />
+              </div>
+            </div>
+          </div>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-submit-5 MuiButton-outlinedPrimary MuiButton-outlinedSizeLarge MuiButton-sizeLarge"
+            tabindex="0"
+            type="submit"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              更新する
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div
+    class="MuiBottomNavigation-root root"
+  >
+    <button
+      class="MuiButtonBase-root MuiBottomNavigationAction-root item"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiBottomNavigationAction-wrapper"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
+          />
+        </svg>
+        <span
+          class="MuiBottomNavigationAction-label"
+        >
+          ホーム
+        </span>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root MuiBottomNavigationAction-root item"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiBottomNavigationAction-wrapper"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
+          />
+        </svg>
+        <span
+          class="MuiBottomNavigationAction-label"
+        >
+          ヘルスデータ
+        </span>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root MuiBottomNavigationAction-root item"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiBottomNavigationAction-wrapper"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M10 20h4V4h-4v16zm-6 0h4v-8H4v8zM16 9v11h4V9h-4z"
+          />
+        </svg>
+        <span
+          class="MuiBottomNavigationAction-label"
+        >
+          体温グラフ
+        </span>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root MuiBottomNavigationAction-root item"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiBottomNavigationAction-wrapper"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+          />
+        </svg>
+        <span
+          class="MuiBottomNavigationAction-label"
+        >
+          ユーザー
+        </span>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root MuiBottomNavigationAction-root item"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiBottomNavigationAction-wrapper"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+          />
+        </svg>
+        <span
+          class="MuiBottomNavigationAction-label"
+        >
+          ログアウト
+        </span>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+</DocumentFragment>
+`;
