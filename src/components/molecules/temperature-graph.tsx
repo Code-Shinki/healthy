@@ -218,7 +218,9 @@ const TemperatureGraph: React.FC<Props> = ({ length }) => {
             selection: {
               enabled: true,
               xaxis: {
-                min: new Date(userDataset.health.slice(-10, -9)[0].createdAt as string).getTime(),
+                min: userDataset.health.slice(-10, -9)[0]
+                  ? new Date(userDataset.health.slice(-10, -9)[0].createdAt as string).getTime()
+                  : new Date(userDataset.health[0].createdAt as string).getTime(),
                 max: new Date(userDataset.health.slice(-1)[0].createdAt as string).getTime(),
               },
             },
@@ -232,7 +234,9 @@ const TemperatureGraph: React.FC<Props> = ({ length }) => {
                   selection: {
                     enabled: true,
                     xaxis: {
-                      min: new Date(userDataset.health.slice(-7, -6)[0].createdAt as string).getTime(),
+                      min: userDataset.health.slice(-7, -6)[0]
+                        ? new Date(userDataset.health.slice(-7, -6)[0].createdAt as string).getTime()
+                        : new Date(userDataset.health[0].createdAt as string).getTime(),
                       max: new Date(userDataset.health.slice(-1)[0].createdAt as string).getTime(),
                     },
                   },
