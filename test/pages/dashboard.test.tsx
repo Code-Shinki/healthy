@@ -2,7 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react'
 import { useRouter } from 'next/router'
 import React from 'react'
 import Dashboard from '../../src/pages/dashboard'
-import AppMock from '../mocks/AppMock'
+import AppMock from '../mocks/app-mock'
 import { loggedInDemo, loggedInInit, nowLoading, unregistered } from '../mocks/globalStateMock'
 import { nextRouterMock } from '../mocks/nextRouterMock'
 

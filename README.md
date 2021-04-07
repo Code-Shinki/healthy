@@ -13,7 +13,16 @@ It is not under actual operation.
 
 - Next.js on Vercel
 - Firebase authentication, Firestore
-- Typescript
+- TypesScript
+
+## Browser Support
+
+It has been checked to work with the following browsers.
+
+- Google Chrome
+- Firefox
+- Microsoft Edge
+- Safari
 
 ## DEV environment variables
 

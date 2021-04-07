@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import Checkup from '../../src/pages/checkup'
 import { postUserDataset } from '../../src/requests/userDataset'
-import AppMock from '../mocks/AppMock'
+import AppMock from '../mocks/app-mock'
 import { loggedInDemo, loggedInInit, nowLoading, unregistered } from '../mocks/globalStateMock'
 import { nextRouterMock } from '../mocks/nextRouterMock'
 
