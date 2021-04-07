@@ -2,7 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react'
 import { useRouter } from 'next/router'
 import React from 'react'
 import Temperature from '../../src/pages/temperature'
-import AppMock from '../mocks/AppMock'
+import AppMock from '../mocks/app-mock'
 import { loggedInDemo, loggedInInit, nowLoading, unregistered } from '../mocks/globalStateMock'
 import { nextRouterMock } from '../mocks/nextRouterMock'
 

@@ -2,7 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react'
 import { useRouter } from 'next/router'
 import React from 'react'
 import Healthdata from '../../src/pages/healthdata'
-import AppMock from '../mocks/AppMock'
+import AppMock from '../mocks/app-mock'
 import { loggedInDemo, loggedInInit, nowLoading, unregistered } from '../mocks/globalStateMock'
 import { nextRouterMock } from '../mocks/nextRouterMock'
 
@@ -22,13 +22,16 @@ describe(`ヘルスデータページ (/healthdata)`, () => {
     const mockRouter = nextRouterMock
     ;(useRouter as jest.Mock).mockReturnValue(mockRouter)
 
-    const { asFragment } = render(
+    const { container } = render(
       <AppMock initializeState={loggedInDemo} drawerMenu={true}>
         <Healthdata />
       </AppMock>
     )
 
-    const tree = asFragment()
+    // DataGridの一部idとaria-controlsがテストごとに異なった値を出力するため、該当箇所をリプレイスしておく
+    // https://github.com/mui-org/material-ui/issues/21293#issuecomment-654921524
+    const tree = container.innerHTML.replace(/id="mui-[0-9]*"/g, '').replace(/aria-controls="(mui-[0-9]* *)*"/g, '')
+
     expect(tree).toMatchSnapshot()
   })
 
