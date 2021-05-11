@@ -31,7 +31,7 @@
     ]
   },
   "dependencies": {
-    "apexcharts": "^3.25.0",
+    "apexcharts": "^3.26.2",
     "axios": "^0.21.1",
     "firebase": "^8.2.10",
     "next": "10.0.8",
