@@ -11,8 +11,10 @@ module.exports = withPWA({
     })
     return config
   },
+
   // X-Powered-Byヘッダを削除
   poweredByHeader: false,
+
   // next-secure-headers | https://github.com/jagaapple/next-secure-headers
   async headers() {
     return [
@@ -22,6 +24,7 @@ module.exports = withPWA({
       },
     ]
   },
+
   // net-pwa | https://github.com/GoogleChrome/workbox/issues/1790#issuecomment-620894023
   pwa: {
     disable: prod ? false : true,
