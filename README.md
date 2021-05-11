@@ -1,13 +1,12 @@
-# Healthy
+<h1 align="center">Healthy</h1>
 
-![og-image](https://user-images.githubusercontent.com/53631280/113713042-d351cb00-9721-11eb-8dba-40efcaf834d7.jpg)
+![og-image](public/img/og-image.jpg)
 
 <p align="center">Health management App.</p>
 
 ## Notice
 
-This application is a portfolio.<br>
-It is not under actual operation.
+This application is a portfolio. It is not under actual operation.
 
 ## Tech Stacks
 
