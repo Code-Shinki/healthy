@@ -24,9 +24,14 @@ jobs:
         with:
           node-version: '14.x'
 
-      - name: yarn install, build, and test
-        run: |
-          yarn install
-          yarn lint
-          yarn test:app
-          yarn build
+      - name: Install
+        run: yarn install
+
+      - name: Linting
+        run: yarn lint
+
+      - name: Testing
+        run: yarn test:app
+
+      - name: Building
+        run: yarn build
