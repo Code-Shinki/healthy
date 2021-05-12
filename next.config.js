@@ -3,13 +3,9 @@ const withPWA = require('next-pwa')
 const prod = process.env.NODE_ENV === 'production'
 
 module.exports = withPWA({
-  // react-spring issue | https://github.com/pmndrs/react-spring/issues/1078
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /react-spring/,
-      sideEffects: true,
-    })
-    return config
+  // Webpack5を採用
+  future: {
+    webpack5: true,
   },
 
   // X-Powered-Byヘッダを削除
@@ -30,5 +26,14 @@ module.exports = withPWA({
     disable: prod ? false : true,
     dest: 'public',
     publicExcludes: ['!img/**/*'],
+  },
+
+  // react-spring issue | https://github.com/pmndrs/react-spring/issues/1078
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /react-spring/,
+      sideEffects: true,
+    })
+    return config
   },
 })
