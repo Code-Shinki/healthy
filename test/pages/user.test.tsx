@@ -141,7 +141,7 @@ describe(`ユーザー設定ページ (/user)`, () => {
     // 体重を入力するテキストフィールドが存在し、変更できるか
     const weight = screen.getByRole('spinbutton', { name: 'weight' })
     expect(weight).toHaveDisplayValue('65.4')
-    userEvent.type(weight, '{backspace}65.8') // 値を変更
+    userEvent.type(weight, '{backspace}8') // 値を変更
     expect(weight).toHaveDisplayValue('65.8')
 
     // かかりつけ医を入力するテキストフィールドが存在し、変更できるか
