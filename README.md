@@ -40,5 +40,4 @@ NEXT_PUBLIC_FIREBASE_APP_ID
 
 ## Copyright and license
 
-This repository is No License.<br>
-Any use, duplication, redistribution, etc. beyond the scope of the GitHub terms of use and copyright law is strictly prohibited.
+This repository is No License. Any use, duplication, redistribution, etc. beyond the scope of the GitHub terms of use and copyright law is strictly prohibited.
