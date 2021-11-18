@@ -1,6 +1,6 @@
 {
   "name": "healthy",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "Portfolio app",
   "author": "Shinki (https://github.com/Code-Shinki/)",
   "license": "UNLICENSED",
@@ -13,22 +13,6 @@
     "test:app": "jest --config=jest.config.js",
     "test:utils": "jest --config=jest.config.utils.js",
     "test:emulator": "firebase emulators:start --only firestore"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": [
-      "eslint --ext .js,.jsx,.ts,.tsx src"
-    ],
-    "src/**/*.{css,scss,sass}": [
-      "stylelint src/**/*.scss"
-    ],
-    "src/**/*": [
-      "prettier --write src"
-    ]
   },
   "dependencies": {
     "apexcharts": "^3.26.2",
@@ -68,10 +52,8 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^6.0.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.6.3",
-    "lint-staged": "^11.0.0",
     "next-secure-headers": "^2.2.0",
     "normalize.css": "^8.0.1",
     "prettier": "^2.3.0",
